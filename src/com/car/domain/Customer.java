@@ -23,7 +23,7 @@ public class Customer implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	private Boolean gender;
+	private Character gender;
 
 	@Column(nullable = false)
 	private String name;
@@ -33,7 +33,7 @@ public class Customer implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
-	private Date birthday;
+	private Date dateOfBirth;
 
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -60,11 +60,11 @@ public class Customer implements Serializable {
 		return this.id;
 	}
 
-	public Boolean getGender() {
+	public Character getGender() {
 		return this.gender;
 	}
 
-	public void setGender(Boolean gender) {
+	public void Character(Character gender) {
 		this.gender = gender;
 	}
 
@@ -82,14 +82,6 @@ public class Customer implements Serializable {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
-	}
-
-	public Date getBirthday() {
-		return this.birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
 	}
 
 	public String getEmail() {
@@ -130,5 +122,13 @@ public class Customer implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 }
