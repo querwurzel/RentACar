@@ -12,7 +12,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  * Entity implementation class for Entity: Customer
@@ -24,7 +23,6 @@ import javax.persistence.Transient;
 })
 public class Customer implements Serializable {
 
-	@Transient
 	public static final String EMAIL_EXISTS = "Customer.EmailExists";
 	
 	@Id

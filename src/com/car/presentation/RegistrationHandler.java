@@ -4,18 +4,18 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Named;
+import javax.faces.bean.RequestScoped;
 
 import com.car.business.remote.CustomerService;
 
-@Named
 @ManagedBean
+@RequestScoped
 public class RegistrationHandler {
 	
 	@EJB
 	private CustomerService customerService;
 	
-	private String gender;
+	private Character gender;
 	private String surname;
 	private String name;
 	private String email;
@@ -25,11 +25,11 @@ public class RegistrationHandler {
 	private String locality;
 	private String postalCode;
 
-	public String getGender() {
+	public Character getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Character gender) {
 		this.gender = gender;
 	}
 
