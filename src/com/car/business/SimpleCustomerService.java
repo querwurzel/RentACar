@@ -3,6 +3,7 @@ package com.car.business;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.car.business.remote.CustomerService;
 import com.car.domain.Customer;
@@ -12,7 +13,7 @@ import com.car.domain.Customer;
  */
 @Stateless
 public class SimpleCustomerService implements CustomerService {
-
+	
 	@PersistenceContext
 	private EntityManager manager;
 
@@ -24,13 +25,15 @@ public class SimpleCustomerService implements CustomerService {
 	}
 
 	public void createCustomer() {
-
-		System.out.println( "would create new customer ");
+		System.out.println("would create new customer");
 		
 	}
 	
-	public Boolean customerExists(Customer customer) {
-		return manager.find(Customer.class, customer.getId()) != null;
+	public Boolean emailExists(String email) {
+		Query query = manager.createNamedQuery(Customer.EMAIL_EXISTS, Long.class);
+		query.setParameter (1, email);
+		
+		// exists if count() > 0
+		return (Long)query.getSingleResult() > 0;
 	}
-
 }

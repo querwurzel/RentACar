@@ -8,27 +8,27 @@
 <title>Customer Registration</title>
 </head>
 <body>
-
 		<h:form>
 			<fieldset>
 				<div class="form-group-box">
 					<h:outputLabel for="gender">Title</h:outputLabel>
-					<h:selectOneMenu id="gender" value="#{registrationHandler.gender}">
+					<h:selectOneMenu id="gender" value="#{registrationHandler.gender}" required="true">
 						<f:selectItem itemLabel="Mrs." itemValue="F" selected="selected" />
 						<f:selectItem itemLabel="Mr." itemValue="M" />
+						<f:validateRegex pattern="^(F|M)$" />
 					</h:selectOneMenu>
 					<h:outputLabel for="gender"><h:message for="gender" /></h:outputLabel>
 				</div>
 				
 				<div class="form-group-box">
-					<h:outputLabel for="name">Name</h:outputLabel>
-					<h:inputText id="name" value="#{registrationHandler.name}" />
-					<h:outputLabel for="name"><h:message for="name" /></h:outputLabel>
+					<label for="content">Surname</label>
+					<input id="title" name="title" type="text" value="" />
 				</div>
 				
 				<div class="form-group-box">
-					<label for="content">Surname</label>
-					<input id="title" name="title" type="text" value="" />
+					<h:outputLabel for="name">Name</h:outputLabel>
+					<h:inputText id="name" value="#{registrationHandler.name}" required="true" />
+					<h:outputLabel for="name"><h:message for="name" /></h:outputLabel>
 				</div>
 				
 				<div class="form-group-box">
@@ -38,7 +38,9 @@
 				
 				<div class="form-group-box">
 					<h:outputLabel for="dateOfBirth">Date Of Birth</h:outputLabel>
-					<h:inputText id="dateOfBirth" value="#{registrationHandler.dateOfBirth}" />
+					<h:inputText id="dateOfBirth" value="#{registrationHandler.dateOfBirth}">
+						<f:convertDateTime />
+					</h:inputText>
 					<h:outputLabel for="dateOfBirth"><h:message for="dateOfBirth" /></h:outputLabel>
 				</div>
 				

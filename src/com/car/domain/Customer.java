@@ -8,16 +8,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * Entity implementation class for Entity: Customer
  * 
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(name = Customer.EMAIL_EXISTS, query = "SELECT count(c) FROM Customer c WHERE c.email = ?1")
+})
 public class Customer implements Serializable {
 
+	@Transient
+	public static final String EMAIL_EXISTS = "Customer.EmailExists";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -64,7 +73,7 @@ public class Customer implements Serializable {
 		return this.gender;
 	}
 
-	public void Character(Character gender) {
+	public void setGender(Character gender) {
 		this.gender = gender;
 	}
 

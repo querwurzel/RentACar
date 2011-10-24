@@ -4,41 +4,27 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.inject.Named;
 
 import com.car.business.remote.CustomerService;
 
+@Named
 @ManagedBean
-@RequestScoped
 public class RegistrationHandler {
 	
 	@EJB
 	private CustomerService customerService;
 	
-	@NotNull
-	@Pattern(regexp = "^(F|M)$")
 	private String gender;
-	
 	private String surname;
-	
 	private String name;
-	
 	private String email;
-	
 	private Date dateOfBirth;
-	
 	private String street;
-	
 	private String number;
-	
 	private String locality;
-	
 	private String postalCode;
 
-	
-	
 	public String getGender() {
 		return gender;
 	}
@@ -116,8 +102,14 @@ public class RegistrationHandler {
 	 * @return navigation action
 	 */
 	public String registerCustomer() {
+		
+		System.out.println("calling customer service");
+		
 		customerService.createCustomer();
 		
-		return "login";
+		System.out.println("called customer service");
+		
+		//TODO: return "login";
+		return "register";
 	}
 }
