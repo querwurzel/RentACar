@@ -1,11 +1,15 @@
 package com.car.domain;
 
 import java.io.Serializable;
-import java.lang.Boolean;
-import java.lang.Long;
-import java.lang.String;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Customer
@@ -17,15 +21,35 @@ public class Customer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(nullable = false)
 	private Boolean gender;
+
+	@Column(nullable = false)
 	private String name;
+
+	@Column(nullable = false)
 	private String surname;
+
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
 	private Date birthday;
+
+	@Column(nullable = false, unique = true)
 	private String email;
+
+	@Column(nullable = false)
 	private String address;
+
+	@Column(nullable = false)
 	private String locality;
+
+	@Column(nullable = false, length = 7)
 	private String postalCode;
+
+	@Column(nullable = false, length = 32)
 	private String password;
+
 	private static final long serialVersionUID = 1L;
 
 	public Customer() {
