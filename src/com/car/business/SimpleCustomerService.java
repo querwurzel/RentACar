@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import com.car.business.remote.CustomerService;
 import com.car.domain.Customer;
+import com.car.domain.Customer.CustomerRole;
 
 /**
  * Session Bean implementation class CustomerService
@@ -17,23 +18,16 @@ public class SimpleCustomerService implements CustomerService {
 	@PersistenceContext
 	private EntityManager manager;
 
-	/**
-	 * Default constructor.
-	 */
-	public SimpleCustomerService() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public void createCustomer() {
-		System.out.println("would create new customer");
+	public void createCustomer(Customer customer) {
+		customer.setRole(CustomerRole.CONSUMER);
 		
+		manager.persist(customer);
 	}
 	
 	public Boolean emailExists(String email) {
-		Query query = manager.createNamedQuery(Customer.EMAIL_EXISTS, Long.class);
+		Query query = manager.createNamedQuery(Customer.QUERY_EMAIL, Long.class);
 		query.setParameter (1, email);
 		
-		// exists if count() > 0
 		return (Long)query.getSingleResult() > 0;
 	}
 }

@@ -21,48 +21,72 @@
 				</div>
 				
 				<div class="form-group-box">
-					<label for="content">Surname</label>
-					<input id="title" name="title" type="text" value="" />
+					<h:outputLabel for="surname">Surname</h:outputLabel>
+					<h:inputText id="surname" value="#{registrationHandler.surname}" required="true">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+					<h:outputLabel for="surname"><h:message for="surname" /></h:outputLabel>
 				</div>
 				
 				<div class="form-group-box">
 					<h:outputLabel for="name">Name</h:outputLabel>
-					<h:inputText id="name" value="#{registrationHandler.name}" required="true" />
+					<h:inputText id="name" value="#{registrationHandler.name}" required="true">
+						<f:validateLength maximum="255" />
+					</h:inputText>
 					<h:outputLabel for="name"><h:message for="name" /></h:outputLabel>
 				</div>
 				
 				<div class="form-group-box">
-					<label for="content">EMail</label>
-					<input id="title" name="title" type="text" value="" />
-				</div>
-				
-				<div class="form-group-box">
 					<h:outputLabel for="dateOfBirth">Date Of Birth</h:outputLabel>
-					<h:inputText id="dateOfBirth" value="#{registrationHandler.dateOfBirth}">
+					<h:inputText id="dateOfBirth" value="#{registrationHandler.dateOfBirth}" required="true">
 						<f:convertDateTime />
 					</h:inputText>
 					<h:outputLabel for="dateOfBirth"><h:message for="dateOfBirth" /></h:outputLabel>
 				</div>
 				
 				<div class="form-group-box">
-					<label for="content">Street / Number</label>
-					<input id="title" name="title" type="text" value="" />
-					<input id="title" name="title" type="text" value="" />
+					<h:outputLabel for="email">EMail</h:outputLabel>
+					<h:inputText id="email" value="#{registrationHandler.email}" validator="#{registrationHandler.validateEmail}" required="true">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+					<h:outputLabel for="email"><h:message for="email" /></h:outputLabel>
 				</div>
 				
 				<div class="form-group-box">
-					<label for="content">Locality</label>
-					<input id="title" name="title" type="text" value="" />
+					<h:outputLabel for="street">Street / Number</h:outputLabel>
+					<h:inputText id="street" value="#{registrationHandler.street}" required="true">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+					<span>|</span>
+					<h:inputText id="number" value="#{registrationHandler.number}" required="true">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+					<h:outputLabel for="street"><h:message for="street" /></h:outputLabel>
+					<h:outputLabel for="number"><h:message for="number" /></h:outputLabel>
 				</div>
 				
 				<div class="form-group-box">
-					<label for="content">Postal Code</label>
-					<input id="title" name="title" type="text" value="" />
+					<h:outputLabel for="locality">Locality</h:outputLabel>
+					<h:inputText id="locality" value="#{registrationHandler.locality}" required="true">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+					<h:outputLabel for="locality"><h:message for="locality" /></h:outputLabel>
+				</div>
+				
+				<div class="form-group-box">
+					<h:outputLabel for="postalCode">Postal Code</h:outputLabel>
+					<h:inputText id="postalCode" value="#{registrationHandler.postalCode}" required="true">
+						<f:validateRegex pattern="^D-[0-9]{5}$" />
+					</h:inputText>
+					<h:outputLabel for="postalCode"><h:message for="postalCode" /></h:outputLabel>
 				</div>
 								
 				<div class="form-group-box">
-					<label for="content">Password</label>
-					<input id="title" name="title" type="text" value="" />
+					<h:outputLabel for="password">Password</h:outputLabel>
+					<h:inputSecret id="password" value="#{registrationHandler.password}" required="true">
+						<f:validateLength maximum="255" />
+					</h:inputSecret>
+					<h:outputLabel for="password"><h:message for="password" /></h:outputLabel>
 				</div>
 				
 			</fieldset>

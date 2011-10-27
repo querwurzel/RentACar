@@ -19,11 +19,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Customer.EMAIL_EXISTS, query = "SELECT count(c) FROM Customer c WHERE c.email = ?1")
+	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT count(c) FROM Customer c WHERE c.email = ?1")
 })
 public class Customer implements Serializable {
-
-	public static final String EMAIL_EXISTS = "Customer.EmailExists";
+	
+	public static final String QUERY_EMAIL = "Customer.EmailExists";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,13 +38,6 @@ public class Customer implements Serializable {
 	@Column(nullable = false)
 	private String surname;
 
-	@Temporal(TemporalType.DATE)
-	@Column(nullable = false)
-	private Date dateOfBirth;
-
-	@Column(nullable = false, unique = true)
-	private String email;
-
 	@Column(nullable = false)
 	private String address;
 
@@ -54,11 +47,27 @@ public class Customer implements Serializable {
 	@Column(nullable = false, length = 7)
 	private String postalCode;
 
-	@Column(nullable = false, length = 32)
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date dateOfBirth;
+	
+	@Column(nullable = false, unique = true)
+	private String email;
+	
+	@Column(nullable = false)
 	private String password;
-
+	
+	@Column(nullable = false)
+	private String role;
+	
 	private static final long serialVersionUID = 1L;
 
+	//TODO: @Enumerated(EnumType.STRING)
+	public enum CustomerRole {
+		CONSUMER,
+		RESELLER
+	}
+	
 	public Customer() {
 		super();
 	}
@@ -137,5 +146,13 @@ public class Customer implements Serializable {
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public CustomerRole getRole() {
+		return CustomerRole.valueOf(this.role);
+	}
+
+	public void setRole(CustomerRole role) throws IllegalArgumentException, NullPointerException {
+		this.role = role.toString();
 	}
 }

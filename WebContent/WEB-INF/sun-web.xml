@@ -4,8 +4,8 @@
 	<context-root>/RentACar</context-root>
 
 	<security-role-mapping>
-		<role-name>Administrator</role-name>
-		<group-name>admin</group-name>
+		<role-name>CONSUMER</role-name>
+		<group-name>CONSUMER</group-name>
 	</security-role-mapping>
 
 	<class-loader delegate="true" />
@@ -17,3 +17,11 @@
 	</jsp-config>
 
 </sun-web-app>
+
+<!--
+SHA512
+INSERT INTO `d01227f5`.`CUSTOMER` (`ID`, `ADDRESS`, `DATEOFBIRTH`, `EMAIL`, `GENDER`, `LOCALITY`, `NAME`, `PASSWORD`, `POSTALCODE`, `ROLE`, `SURNAME`) VALUES (NULL, 'Straße', '2011-10-31', 'admin', 'M', 'Berlin', 'Name', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', '12345', 'Consumer', 'Surname');
+
+
+
+-->

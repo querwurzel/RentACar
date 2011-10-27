@@ -2,11 +2,19 @@ package com.car.presentation;
 
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+
+import org.apache.commons.validator.EmailValidator;
 
 import com.car.business.remote.CustomerService;
+import com.car.domain.Customer;
 
 @ManagedBean
 @RequestScoped
@@ -15,24 +23,42 @@ public class RegistrationHandler {
 	@EJB
 	private CustomerService customerService;
 	
-	private Character gender;
+	private String gender;
 	private String surname;
 	private String name;
 	private String email;
 	private Date dateOfBirth;
 	private String street;
-	private String number;
+	private Integer number;
 	private String locality;
 	private String postalCode;
+	private String password;
 
-	public Character getGender() {
+	@PostConstruct
+	public void init() {
+		this.postalCode = "D-";
+	}
+	
+	public String getGender() {
 		return gender;
 	}
+	
+	private Character getGenderAsCharacter() {
+		return this.gender.charAt(0);
+	}
 
-	public void setGender(Character gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	
 	public String getSurname() {
 		return surname;
 	}
@@ -55,22 +81,6 @@ public class RegistrationHandler {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
 	}
 
 	public String getLocality() {
@@ -97,19 +107,58 @@ public class RegistrationHandler {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+	
 	/**
+	 * Checks if email address is valid and not yet registered.
+	 * 
+	 * @throws ValidatorException if invalid format or already registered
+	 */
+	public void validateEmail(FacesContext facesContext, UIComponent component, Object value) throws ValidatorException {
+		String email = (String)value;
+		EmailValidator validator = EmailValidator.getInstance();
+		
+		if (!validator.isValid(email))
+			throw new ValidatorException( new FacesMessage("EMail address invalid!") );
+		
+		if (this.customerService.emailExists(email))
+			throw new ValidatorException( new FacesMessage("EMail address already used by another customer!") );
+	}
+	
+	/**
+	 * Registers new customer.
+	 * Returns to login page afterwards.
 	 * 
 	 * @return navigation action
 	 */
 	public String registerCustomer() {
+		Customer customer = new Customer();
+		customer.setGender( this.getGenderAsCharacter() );
+		customer.setSurname( this.getSurname() );
+		customer.setName( this.getName() );
+		customer.setDateOfBirth( this.getDateOfBirth() );
+		customer.setEmail( this.getEmail() );
+		customer.setAddress( String.format("%s %s", this.getStreet(), this.getNumber()) );
+		customer.setLocality( this.getLocality() );
+		customer.setPostalCode( this.getPostalCode() );
+		customer.setPassword( this.getPassword() );
 		
-		System.out.println("calling customer service");
+		customerService.createCustomer(customer);
 		
-		customerService.createCustomer();
-		
-		System.out.println("called customer service");
-		
-		//TODO: return "login";
-		return "register";
+		return "login";
 	}
 }

@@ -15,7 +15,7 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <security-role>
-    <role-name>Administrator</role-name>
+    <role-name>CONSUMER</role-name>
   </security-role>
   <security-constraint>
     <web-resource-collection>
@@ -23,7 +23,7 @@
       <url-pattern>/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>Administrator</role-name>
+      <role-name>CONSUMER</role-name>
     </auth-constraint>
   </security-constraint>
   <security-constraint>
@@ -37,7 +37,7 @@
   </security-constraint>
   <login-config>
     <auth-method>FORM</auth-method>
-    <realm-name>file</realm-name>
+    <realm-name>RentACar</realm-name>
     <form-login-config>
       <form-login-page>/login.xhtml</form-login-page>
       <form-error-page>/login.xhtml</form-error-page>
