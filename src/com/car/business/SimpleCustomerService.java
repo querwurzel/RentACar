@@ -26,7 +26,7 @@ public class SimpleCustomerService implements CustomerService {
 	
 	public Boolean emailExists(String email) {
 		Query query = manager.createNamedQuery(Customer.QUERY_EMAIL, Long.class);
-		query.setParameter (1, email);
+		query.setParameter(1, email);
 		
 		return (Long)query.getSingleResult() > 0;
 	}

@@ -8,13 +8,16 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.EmailValidator;
 
 import com.car.business.remote.CustomerService;
 import com.car.domain.Customer;
+import com.car.domain.Customer.Gender;
 
 @ManagedBean
 @RequestScoped
@@ -23,7 +26,7 @@ public class RegistrationHandler {
 	@EJB
 	private CustomerService customerService;
 	
-	private String gender;
+	private Gender gender;
 	private String surname;
 	private String name;
 	private String email;
@@ -38,19 +41,15 @@ public class RegistrationHandler {
 	public void init() {
 		this.postalCode = "D-";
 	}
-	
-	public String getGender() {
+
+	public Gender getGender() {
 		return gender;
 	}
-	
-	private Character getGenderAsCharacter() {
-		return this.gender.charAt(0);
-	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-
+	
 	public String getStreet() {
 		return street;
 	}
@@ -147,7 +146,7 @@ public class RegistrationHandler {
 	 */
 	public String registerCustomer() {
 		Customer customer = new Customer();
-		customer.setGender( this.getGenderAsCharacter() );
+		customer.setGender( this.getGender() );
 		customer.setSurname( this.getSurname() );
 		customer.setName( this.getName() );
 		customer.setDateOfBirth( this.getDateOfBirth() );
@@ -160,5 +159,16 @@ public class RegistrationHandler {
 		customerService.createCustomer(customer);
 		
 		return "login";
+	}
+	
+	// TODO: refactor!
+	public String logout() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext(); 
+		//externalContext.getSessionMap().remove("SomeSessionBean");
+
+		HttpSession session = (HttpSession) externalContext.getSession(true);
+		session.invalidate(); 
+		return "index";
 	}
 }

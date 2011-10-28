@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Entity implementation class for Entity: Customer
@@ -30,7 +34,8 @@ public class Customer implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	private Character gender;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 
 	@Column(nullable = false)
 	private String name;
@@ -58,14 +63,19 @@ public class Customer implements Serializable {
 	private String password;
 	
 	@Column(nullable = false)
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private CustomerRole role;
 	
 	private static final long serialVersionUID = 1L;
 
-	//TODO: @Enumerated(EnumType.STRING)
 	public enum CustomerRole {
 		CONSUMER,
 		RESELLER
+	}
+	
+	public enum Gender {
+		FEMALE,
+		MALE
 	}
 	
 	public Customer() {
@@ -76,11 +86,11 @@ public class Customer implements Serializable {
 		return this.id;
 	}
 
-	public Character getGender() {
-		return this.gender;
+	public Gender getGender() {
+		return gender;
 	}
 
-	public void setGender(Character gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -137,7 +147,7 @@ public class Customer implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = DigestUtils.sha512Hex(password);
 	}
 
 	public Date getDateOfBirth() {
@@ -149,10 +159,10 @@ public class Customer implements Serializable {
 	}
 
 	public CustomerRole getRole() {
-		return CustomerRole.valueOf(this.role);
+		return role;
 	}
 
-	public void setRole(CustomerRole role) throws IllegalArgumentException, NullPointerException {
-		this.role = role.toString();
+	public void setRole(CustomerRole role) {
+		this.role = role;
 	}
 }
