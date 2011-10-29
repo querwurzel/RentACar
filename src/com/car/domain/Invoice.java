@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * 
  */
 @Entity
-public class Invoice extends PaymentType implements Serializable {
+public class Invoice extends Payment implements Serializable {
 
 	@Column(nullable = false, unique = true, updatable = false)
 	private Long invoiceNumber;

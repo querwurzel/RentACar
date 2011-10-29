@@ -21,13 +21,13 @@ public class SimpleCustomerService implements CustomerService {
 	public void createCustomer(Customer customer) {
 		customer.setRole(CustomerRole.CONSUMER);
 		
-		manager.persist(customer);
+		this.manager.persist(customer);
 	}
 	
 	public Boolean emailExists(String email) {
-		Query query = manager.createNamedQuery(Customer.QUERY_EMAIL, Long.class);
+		Query query = this.manager.createNamedQuery(Customer.CHECK_EMAIL, String.class);
 		query.setParameter(1, email);
 		
-		return (Long)query.getSingleResult() > 0;
+		return query.getSingleResult() != null;
 	}
 }

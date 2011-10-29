@@ -3,6 +3,7 @@ package com.car.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,10 @@ public class Rental implements Serializable {
 
 	public Rental() {
 		super();
-		
+	}
+	
+	@PostConstruct
+	public void init() {
 		this.dateRented = new Date();
 	}
 

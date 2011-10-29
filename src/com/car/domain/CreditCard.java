@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * 
  */
 @Entity
-public class CreditCard extends PaymentType implements Serializable {
+public class CreditCard extends Payment implements Serializable {
 
 	@Column(nullable = false)
 	private Long number;

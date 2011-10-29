@@ -10,13 +10,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * Entity implementation class for Entity: Car
  * 
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(name = Car.QUERY_CAR_BASICS_BY_ID, query = "SELECT NEW com.car.domain.query.CarBasics(c.id, c.name) FROM Car c WHERE c.carType.id = ?1")
+})
 public class Car implements Serializable {
+	
+	public static final String QUERY_CAR_BASICS_BY_ID = "Car.AllCarBasics";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +36,11 @@ public class Car implements Serializable {
 
 	private String image;
 	
-	@Column(nullable = false, scale = 3)
+	@Column(nullable = false)
 	private Double dailyFee;
 	
 	@Column(nullable = false)
-	private Currency currency;
+	private String currency;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -89,11 +96,11 @@ public class Car implements Serializable {
 		this.dailyFee = dailyFee;
 	}
 
-	public Currency getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(Currency currency) {
+	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
 }

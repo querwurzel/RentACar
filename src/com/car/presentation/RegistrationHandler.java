@@ -11,6 +11,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.EmailValidator;
@@ -167,8 +168,13 @@ public class RegistrationHandler {
 		ExternalContext externalContext = context.getExternalContext(); 
 		//externalContext.getSessionMap().remove("SomeSessionBean");
 
-		HttpSession session = (HttpSession) externalContext.getSession(true);
+		System.out.println( ((HttpServletRequest)externalContext.getRequest()).getUserPrincipal() );
+		
+		
+		HttpSession session = (HttpSession) externalContext.getSession(false);
 		session.invalidate(); 
+		
+		
 		return "login";
 	}
 }

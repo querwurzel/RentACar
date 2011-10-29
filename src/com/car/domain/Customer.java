@@ -23,11 +23,11 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT count(c) FROM Customer c WHERE c.email = ?1")
+	@NamedQuery(name = Customer.CHECK_EMAIL, query = "SELECT c.email FROM Customer c WHERE c.email = ?1")
 })
 public class Customer implements Serializable {
 	
-	public static final String QUERY_EMAIL = "Customer.EmailExists";
+	public static final String CHECK_EMAIL = "Customer.EmailExists";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

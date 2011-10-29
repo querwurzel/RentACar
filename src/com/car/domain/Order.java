@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Currency;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
-@Table(name = "\"ORDER\"")
+@Table(name = "\"ORDER\"") // ORDER BY collision
 public class Order implements Serializable {
 
 	@Id
@@ -29,7 +30,7 @@ public class Order implements Serializable {
 	@Column(nullable = false, unique = true, updatable = false)
 	private Long orderNumber;
 
-	@Column(nullable = false, scale = 3)
+	@Column(nullable = false)
 	private Double amount;
 
 	@Column(nullable = false)
@@ -40,13 +41,16 @@ public class Order implements Serializable {
 	private Date dateCreated;
 
 	@JoinColumn(nullable = false)
-	private PaymentType payment;
+	private Payment payment;
 
 	private static final long serialVersionUID = 1L;
 
 	public Order() {
 		super();
-		
+	}
+
+	@PostConstruct
+	public void init() {
 		this.dateCreated = new Date();
 	}
 
@@ -78,11 +82,11 @@ public class Order implements Serializable {
 		return this.dateCreated;
 	}
 
-	public PaymentType getPayment() {
+	public Payment getPayment() {
 		return payment;
 	}
 
-	public void setPayment(PaymentType payment) {
+	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
 }

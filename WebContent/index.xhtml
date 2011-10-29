@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-<head>
+<h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>RentACar</title>
-</head>
-<body>
+</h:head>
+<h:body>
 
 <h1><h:graphicImage alt="" title="RentACar" value="/images/car.jpg" />RentACar</h1>
+
+<h:form>
+	<fieldset>
+		<h:selectOneListbox id="carType" value="#{carHandler.carTypeId}" size="5" required="true">
+			<f:selectItems value="#{carHandler.allCarTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
+			<f:ajax render="car" />
+		</h:selectOneListbox>
+		<h:commandButton value="Select CarType" />
+	</fieldset>
+	
+	
+	<fieldset>
+		<h:selectOneListbox id="car" value="#{carHandler.carId}" size="5">
+			<f:selectItems value="#{carHandler.allCars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
+			<f:ajax render="carFee" />
+		</h:selectOneListbox>
+		<h:commandButton value="Select Car" />
+	</fieldset>
+	
+	<fieldset>
+		<h:outputText id="carFee" value="#{carHandler.carFee}" />
+	</fieldset>
+
+</h:form>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 <h:form>
 	<h:commandLink action="#{registrationHandler.logout}" value="Logout" />
 </h:form>
 
-
-</body>
+</h:body>
 </html>
