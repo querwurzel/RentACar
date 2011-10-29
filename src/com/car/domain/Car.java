@@ -95,12 +95,12 @@ public class Car implements Serializable {
 	public void setDailyFee(Double dailyFee) {
 		this.dailyFee = dailyFee;
 	}
-
-	public String getCurrency() {
-		return currency;
+	
+	public Currency getCurrency() {
+		return Currency.getInstance(currency);
 	}
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setCurrency(Currency currency) {
+		this.currency = currency.getCurrencyCode();
 	}
 }

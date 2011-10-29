@@ -40,14 +40,6 @@ public class SimpleCarService implements CarService {
 		
 		return query.getResultList();
 	}
-
-	@Deprecated
-	public CarType getCarType(Long carTypeId) {
-		if (carTypeId == null)
-			return null;
-
-		return this.manager.find(CarType.class, carTypeId);
-	}
 	
 	public Car getCar(Long carId) {
 		if (carId == null)
@@ -55,5 +47,4 @@ public class SimpleCarService implements CarService {
 		
 		return this.manager.find(Car.class, carId);
 	}
-
 }

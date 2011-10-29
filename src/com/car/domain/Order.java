@@ -34,7 +34,7 @@ public class Order implements Serializable {
 	private Double amount;
 
 	@Column(nullable = false)
-	private Currency currency;
+	private String currency;
 
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false, updatable = false)
@@ -71,11 +71,11 @@ public class Order implements Serializable {
 	}
 
 	public Currency getCurrency() {
-		return this.currency;
+		return Currency.getInstance(currency);
 	}
 
 	public void setCurrency(Currency currency) {
-		this.currency = currency;
+		this.currency = currency.getCurrencyCode();
 	}
 
 	public Date getDateCreated() {

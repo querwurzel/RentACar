@@ -168,12 +168,8 @@ public class RegistrationHandler {
 		ExternalContext externalContext = context.getExternalContext(); 
 		//externalContext.getSessionMap().remove("SomeSessionBean");
 
-		System.out.println( ((HttpServletRequest)externalContext.getRequest()).getUserPrincipal() );
-		
-		
-		HttpSession session = (HttpSession) externalContext.getSession(false);
+		HttpSession session = (HttpSession)externalContext.getSession(true);
 		session.invalidate(); 
-		
 		
 		return "login";
 	}

@@ -18,17 +18,21 @@
 		<h:commandButton value="Select CarType" />
 	</fieldset>
 	
-	
 	<fieldset>
 		<h:selectOneListbox id="car" value="#{carHandler.carId}" size="5">
 			<f:selectItems value="#{carHandler.allCars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
-			<f:ajax render="carFee" />
+			<f:ajax render="dailyFee currency" />
 		</h:selectOneListbox>
 		<h:commandButton value="Select Car" />
 	</fieldset>
 	
 	<fieldset>
-		<h:outputText id="carFee" value="#{carHandler.carFee}" />
+		<div>
+			<span>Daily Fee (<h:outputText id="currency" value="#{carHandler.currency}" />): </span>
+			<h:outputText id="dailyFee" value="#{carHandler.dailyFee}">
+				<f:convertNumber currencyCode="#{carHandler.currency}" />
+			</h:outputText>
+		</div>
 	</fieldset>
 
 </h:form>

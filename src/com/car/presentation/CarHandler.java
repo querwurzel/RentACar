@@ -1,5 +1,6 @@
 package com.car.presentation;
 
+import java.util.Currency;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -20,7 +21,11 @@ public class CarHandler {
 
 	private Long carTypeId;
 	private Long carId;
-	private Car car;
+	private String name;
+	private String description;
+	private String image;
+	private Double dailyFee;
+	private String currency;
 
 	public Long getCarTypeId() {
 		return carTypeId;
@@ -36,12 +41,40 @@ public class CarHandler {
 
 	public void setCarId(Long carId) {
 		this.carId = carId;
-		this.car = this.carService.getCar( this.getCarId() );
+		
+		// fetch missing car data
+		Car car = this.carService.getCar( this.getCarId() );
+
+		if (car != null) {
+			this.name = car.getName();
+			this.description = car.getDescription();
+			this.image = car.getImage();
+			this.dailyFee = car.getDailyFee();
+			this.currency = car.getCurrency().getCurrencyCode();
+		}
 	}
 	
-	public Double getCarFee() {
-		return (this.car != null) ? this.car.getDailyFee() : null;
+	public String getName() {
+		return name;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public Double getDailyFee() {
+		return dailyFee;
+	}
+	
+	public String getCurrency() {
+		return currency;
+	}
+	
+	
 	
 	
 	
