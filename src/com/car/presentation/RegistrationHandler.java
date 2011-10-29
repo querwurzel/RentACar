@@ -169,6 +169,6 @@ public class RegistrationHandler {
 
 		HttpSession session = (HttpSession) externalContext.getSession(true);
 		session.invalidate(); 
-		return "index";
+		return "login";
 	}
 }

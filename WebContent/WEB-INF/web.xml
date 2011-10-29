@@ -6,7 +6,6 @@
 	<display-name>RentACar</display-name>
 	<welcome-file-list>
 		<welcome-file>/index.xhtml</welcome-file>
-		<welcome-file>/index.html</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -23,7 +22,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>RentACar</web-resource-name>
-			<url-pattern>/*</url-pattern>
+			<url-pattern>*.xhtml</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>CONSUMER</role-name>
