@@ -3,7 +3,6 @@ package com.car.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,12 +31,6 @@ public class Rental implements Serializable {
 	@Column(nullable = false)
 	private Date rentedUntil;
 
-	@Temporal(TemporalType.DATE)
-	private Date dateReturned;
-
-	@Temporal(TemporalType.DATE)
-	private Date lastUpdated;
-
 	@JoinColumn(nullable = false)
 	private Customer customer;
 
@@ -53,17 +46,16 @@ public class Rental implements Serializable {
 		super();
 	}
 	
-	@PostConstruct
-	public void init() {
-		this.dateRented = new Date();
-	}
-
 	public Long getId() {
 		return this.id;
 	}
 
 	public Date getDateRented() {
 		return this.dateRented;
+	}
+	
+	public void setDateRented(Date dateRented) {
+		this.dateRented = dateRented;
 	}
 
 	public Date getRentedUntil() {
@@ -72,22 +64,6 @@ public class Rental implements Serializable {
 
 	public void setRentedUntil(Date rentedUntil) {
 		this.rentedUntil = rentedUntil;
-	}
-
-	public Date getLastUpdated() {
-		return this.lastUpdated;
-	}
-
-	public void setLastUpdated(Date lastUpdated) {
-		this.lastUpdated = lastUpdated;
-	}
-
-	public Date getDateReturned() {
-		return dateReturned;
-	}
-
-	public void setDateReturned(Date dateReturned) {
-		this.dateReturned = dateReturned;
 	}
 
 	public Customer getCustomer() {

@@ -1,7 +1,9 @@
 package com.car.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: CarType
@@ -28,6 +31,9 @@ public class CarType implements Serializable {
 	
 	@Column(nullable = false, unique = true)
 	private String name;
+	
+	@OneToMany(mappedBy = "carType", cascade = CascadeType.PERSIST)
+	private List<Car> cars;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -50,5 +56,9 @@ public class CarType implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public List<Car> getCars() {
+		return cars;
 	}
 }

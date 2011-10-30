@@ -47,10 +47,6 @@
     <error-code>403</error-code>
     <location>/http/403.xhtml</location>
   </error-page>
-  <error-page>
-  	<exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
-  	<location>/images/noImage.gif</location>
-  </error-page>
   <context-param>
   	<param-name>com.sun.faces.preferXHTML</param-name>
   	<param-value>true</param-value>

@@ -3,8 +3,10 @@ package com.car.domain;
 import java.io.Serializable;
 import java.util.Currency;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +44,7 @@ public class Car implements Serializable {
 	@Column(nullable = false)
 	private String currency;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
 	private CarType carType;
 

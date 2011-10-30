@@ -44,7 +44,10 @@ public class Customer implements Serializable {
 	private String surname;
 
 	@Column(nullable = false)
-	private String address;
+	private String street;
+	
+	@Column(nullable = false)
+	private String number;
 
 	@Column(nullable = false)
 	private String locality;
@@ -118,12 +121,20 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public String getAddress() {
-		return this.address;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
 	public String getLocality() {

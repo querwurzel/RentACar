@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Currency;
 import java.util.Date;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,17 +48,16 @@ public class Order implements Serializable {
 		super();
 	}
 
-	@PostConstruct
-	public void init() {
-		this.dateCreated = new Date();
-	}
-
 	public Long getId() {
 		return this.id;
 	}
 
 	public Long getOrderNumber() {
 		return orderNumber;
+	}
+	
+	public void setOrderNumber(Long orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 
 	public Double getAmount() {
@@ -80,6 +78,10 @@ public class Order implements Serializable {
 
 	public Date getDateCreated() {
 		return this.dateCreated;
+	}
+	
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public Payment getPayment() {

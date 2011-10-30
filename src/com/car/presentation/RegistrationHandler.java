@@ -32,7 +32,7 @@ public class RegistrationHandler {
 	private String email;
 	private Date dateOfBirth;
 	private String street;
-	private Integer number;
+	private String number;
 	private String locality;
 	private String postalCode;
 	private String password;
@@ -114,11 +114,11 @@ public class RegistrationHandler {
 		this.password = password;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 	
@@ -151,7 +151,8 @@ public class RegistrationHandler {
 		customer.setName( this.getName() );
 		customer.setDateOfBirth( this.getDateOfBirth() );
 		customer.setEmail( this.getEmail() );
-		customer.setAddress( String.format("%s %s", this.getStreet(), this.getNumber()) );
+		customer.setStreet( this.getStreet() );
+		customer.setNumber( this.getNumber() );
 		customer.setLocality( this.getLocality() );
 		customer.setPostalCode( this.getPostalCode() );
 		customer.setPassword( this.getPassword() );
