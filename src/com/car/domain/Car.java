@@ -19,7 +19,7 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Car.QUERY_CAR_BASICS_BY_ID, query = "SELECT NEW com.car.domain.query.CarBasics(c.id, c.name) FROM Car c WHERE c.carType.id = ?1")
+	@NamedQuery(name = Car.QUERY_CAR_BASICS_BY_ID, query = "SELECT NEW com.car.domain.query.CarBasics(c.id, c.name) FROM Car c WHERE c.carType.id = ?1 ORDER BY c.name")
 })
 public class Car implements Serializable {
 	

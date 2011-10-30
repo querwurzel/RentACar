@@ -42,9 +42,6 @@ public class SimpleCarService implements CarService {
 	}
 	
 	public Car getCar(Long carId) {
-		if (carId == null)
-			return null;
-		
-		return this.manager.find(Car.class, carId);
+		return (carId == null) ? null : this.manager.find(Car.class, carId);
 	}
 }
