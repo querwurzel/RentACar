@@ -1,5 +1,8 @@
 package com.car.business;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,12 +25,16 @@ public class SimpleCustomerService implements CustomerService {
 		customer.setRole(CustomerRole.CONSUMER);
 
 		this.manager.persist(customer);
+		
+		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: Registrated new customer (email: %s).", customer.getName()));
 	}
 
 	public Boolean emailExists(String email) {
 		Query query = this.manager.createNamedQuery(Customer.CHECK_EMAIL, String.class);
 		query.setParameter(1, email);
 
-		return query.getSingleResult() != null;
+		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: Querying email '%s'.", email));
+
+		return query.getResultList().size() > 0;
 	}
 }

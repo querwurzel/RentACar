@@ -2,8 +2,11 @@ package com.car.business;
 
 import java.util.Currency;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.DenyAll;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
@@ -23,6 +26,7 @@ import com.car.domain.Rental;
  * Session Bean implementation class Bootstrap
  */
 @Startup
+@DenyAll
 @Singleton
 public class Bootstrap {
 	
@@ -38,7 +42,7 @@ public class Bootstrap {
 		cust.setNumber("A");
 		cust.setGender(Gender.MALE);
 		cust.setDateOfBirth( new Date() );
-		cust.setEmail("admin@web.de");
+		cust.setEmail("admin@localhost");
 		cust.setPassword("admin");
 		cust.setLocality("Locality");
 		cust.setPostalCode("D-12345");
@@ -132,5 +136,7 @@ public class Bootstrap {
 		manager.persist(r1);
 		manager.persist(r2);
 		manager.flush();
+		
+		Logger.getLogger(Bootstrap.class.getName()).log(Level.INFO, "Bootstrap: Success!");
     }
 }

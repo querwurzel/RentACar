@@ -10,15 +10,19 @@
 <h1><h:graphicImage alt="" title="RentACar" value="/images/car.jpg" />RentACar</h1>
 
 <h:form>
+	<h:commandButton value="Logout" action="#{userHandler.logout}" />
+</h:form>
 
-	<h:messages />
+<h2>Please select a car for rental</h2>
+
+<h:form>
 
 	<fieldset>
 		<h:selectOneListbox style="width:150px; height:150px" id="carType" size="5" value="#{carHandler.carTypeId}" required="true">
 			<f:selectItems value="#{carHandler.allCarTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
-			<f:ajax execute="carType" render="@form" listener="#{carHandler.selectCarTypeAsynchronous}" />
+			<f:ajax execute="carType" render="@form" listener="#{carHandler.updateCarTypeAsynchronous}" />
 		</h:selectOneListbox>
-		<h:commandButton value="Select CarType" actionListener="#{carHandler.selectCarType}">
+		<h:commandButton value="Select CarType" actionListener="#{carHandler.updateCarType}">
 			<f:ajax execute="carType" render="@form" />
 		</h:commandButton>
 	</fieldset>
@@ -26,9 +30,9 @@
 	<fieldset>
 		<h:selectOneListbox style="width:150px; height:150px" id="car" size="5" value="#{carHandler.carId}">
 			<f:selectItems value="#{carHandler.allCars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
-			<f:ajax execute="car" render="@form" listener="#{carHandler.selectCarAsynchronous}" />
+			<f:ajax execute="car" render="@form" listener="#{carHandler.updateCarAsynchronous}" />
 		</h:selectOneListbox>
-		<h:commandButton value="Select Car" actionListener="#{carHandler.selectCar}">
+		<h:commandButton value="Select Car" actionListener="#{carHandler.updateCar}">
 			<f:ajax execute="car" render="@form" />
 		</h:commandButton>
 	</fieldset>
@@ -52,9 +56,9 @@
 			</h:panelGroup>
 			
 			<h:outputText value="Image:" />
-			<h:graphicImage alt="" title="#{carHandler.name}" rendered="#{carHandler.image != null}" value="/images/cars/#{carHandler.image}" />
+			<h:graphicImage alt="" title="#{carHandler.name}" value="/images/cars/#{carHandler.image}" rendered="#{carHandler.image != null}" />
 			
-			<h:commandButton value="Rent" action="payment" rendered="#{carHandler.carId != null}" />
+			<h:commandButton value="Rent" action="#{carHandler.selectCar}" rendered="#{carHandler.carId != null}" />
 		</h:panelGrid>
 
 	</fieldset>

@@ -4,21 +4,25 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import com.car.business.remote.CarService;
+import com.car.business.remote.OrderService;
 import com.car.domain.Car;
 import com.car.domain.query.CarBasics;
 import com.car.domain.query.CarTypeBasics;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class CarHandler {
 
 	@EJB
 	private CarService carService;
+	
+	@EJB
+	private OrderService orderService;
 
 	private Long carTypeId;
 	private Long carId;
@@ -31,7 +35,7 @@ public class CarHandler {
 	/**
 	 * Resets all car-specific fields if current carType changed.
 	 */
-	public void selectCarType(ActionEvent event) {
+	public void updateCarType(ActionEvent event) {
 		this.setCarId(null);
 		this.setName(null);
 		this.setDescription(null);
@@ -44,7 +48,7 @@ public class CarHandler {
 	 * Resolves all car-specific fields for the current car.
 	 * If no car was found all fields will be nulled.
 	 */
-	public void selectCar(ActionEvent event) {
+	public void updateCar(ActionEvent event) {
 		Car car = this.carService.getCar( this.getCarId() );
 
 		if (car == null) {
@@ -62,12 +66,21 @@ public class CarHandler {
 		}
 	}
 	
-	public void selectCarTypeAsynchronous(AjaxBehaviorEvent event) {
-		this.selectCarType(null);
+	public void updateCarTypeAsynchronous(AjaxBehaviorEvent event) {
+		this.updateCarType(null);
 	}
 	
-	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
-		this.selectCar(null);
+	public void updateCarAsynchronous(AjaxBehaviorEvent event) {
+		this.updateCar(null);
+	}
+	
+	public String selectCar() {
+		if (this.getCarId() == null)
+			return "index";
+
+		orderService.selectCar( this.getCarId() );
+
+		return "payment";
 	}
 	
 	/**

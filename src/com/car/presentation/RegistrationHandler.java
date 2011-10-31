@@ -6,12 +6,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.EmailValidator;
 
@@ -20,7 +18,7 @@ import com.car.domain.Customer;
 import com.car.domain.Customer.Gender;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class RegistrationHandler {
 	
 	@EJB
@@ -158,18 +156,6 @@ public class RegistrationHandler {
 		customer.setPassword( this.getPassword() );
 		
 		customerService.createCustomer(customer);
-		
-		return "login";
-	}
-	
-	// TODO: refactor!
-	public String logout() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = context.getExternalContext(); 
-		//externalContext.getSessionMap().remove("SomeSessionBean");
-
-		HttpSession session = (HttpSession)externalContext.getSession(true);
-		session.invalidate(); 
 		
 		return "login";
 	}

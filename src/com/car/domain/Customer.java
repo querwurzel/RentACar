@@ -74,6 +74,7 @@ public class Customer implements Serializable {
 	public enum CustomerRole {
 		CONSUMER,
 		RESELLER
+		// to be continued
 	}
 	
 	public enum Gender {
