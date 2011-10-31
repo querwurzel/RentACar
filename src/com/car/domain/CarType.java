@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: CarType
- * 
  */
 @Entity
 @NamedQueries({

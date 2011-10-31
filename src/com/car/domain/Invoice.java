@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 
 /**
  * Entity implementation class for Entity: Invoice
- * 
  */
 @Entity
 public class Invoice extends Payment implements Serializable {

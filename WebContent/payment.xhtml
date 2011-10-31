@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Payment</title>
@@ -8,6 +8,23 @@
 <body>
 
 <h1>Payment</h1>
+
+<h:form>
+
+	<fieldset>
+		<h:outputLabel value="How would you like to pay?" />
+		<h:selectOneRadio>
+			<f:selectItems value="#{carHandler.allCarTypes}" />
+		</h:selectOneRadio>
+	</fieldset>
+
+	<fieldset>
+		<h:commandButton value="Proceed" />
+		
+		<h:commandButton value="Abort" action="#{paymentHandler.abortPayment}" immediate="true" />
+	</fieldset>
+
+</h:form>
 
 </body>
 </html>

@@ -19,15 +19,17 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Entity implementation class for Entity: Customer
- * 
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Customer.CHECK_EMAIL, query = "SELECT c.email FROM Customer c WHERE c.email = ?1")
+	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT c.email FROM Customer c WHERE c.email = ?1"),
+	@NamedQuery(name = Customer.QUERY_CUSTOMER_BY_EMAIL, query = "SELECT c FROM Customer c WHERE c.email = ?1")
 })
 public class Customer implements Serializable {
-	
-	public static final String CHECK_EMAIL = "Customer.EmailExists";
+
+	public static final String QUERY_EMAIL = "Customer.Email.FindByEmail";
+
+	public static final String QUERY_CUSTOMER_BY_EMAIL = "Customer.FindByEmail";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,17 +68,10 @@ public class Customer implements Serializable {
 	private String password;
 	
 	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private CustomerRole role;
+	private String role;
 	
 	private static final long serialVersionUID = 1L;
 
-	public enum CustomerRole {
-		CONSUMER,
-		RESELLER
-		// to be continued
-	}
-	
 	public enum Gender {
 		FEMALE,
 		MALE
@@ -170,11 +165,21 @@ public class Customer implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public CustomerRole getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(CustomerRole role) {
+	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	public final class CustomerRole {
+
+		public static final String CONSUMER = "CONSUMER";
+
+		public static final String RESELLER = "RESELLER";
+
+		// to be continued
+
 	}
 }

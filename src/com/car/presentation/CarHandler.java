@@ -20,7 +20,7 @@ public class CarHandler {
 
 	@EJB
 	private CarService carService;
-	
+
 	@EJB
 	private OrderService orderService;
 
@@ -74,7 +74,10 @@ public class CarHandler {
 		this.updateCar(null);
 	}
 	
-	public String selectCar() {
+	/**
+	 * Proceeds to payment if a car was selected successfully.
+	 */
+	public String confirmCar() {
 		if (this.getCarId() == null)
 			return "index";
 
@@ -82,7 +85,7 @@ public class CarHandler {
 
 		return "payment";
 	}
-	
+
 	/**
 	 * Returns all carTypes available.
 	 */

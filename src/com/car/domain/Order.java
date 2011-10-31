@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Order
- * 
  */
 @Entity
 @Table(name = "\"ORDER\"") // ORDER BY collision

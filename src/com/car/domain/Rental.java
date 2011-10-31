@@ -14,7 +14,6 @@ import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Rental
- * 
  */
 @Entity
 public class Rental implements Serializable {

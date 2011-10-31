@@ -15,7 +15,6 @@ import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: PaymentType
- * 
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

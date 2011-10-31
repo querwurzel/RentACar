@@ -58,7 +58,7 @@
 			<h:outputText value="Image:" />
 			<h:graphicImage alt="" title="#{carHandler.name}" value="/images/cars/#{carHandler.image}" rendered="#{carHandler.image != null}" />
 			
-			<h:commandButton value="Rent" action="#{carHandler.selectCar}" rendered="#{carHandler.carId != null}" />
+			<h:commandButton value="Rent" action="#{carHandler.confirmCar}" rendered="#{carHandler.carId != null}" />
 		</h:panelGrid>
 
 	</fieldset>

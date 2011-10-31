@@ -20,10 +20,10 @@ import com.car.domain.Customer.Gender;
 @ManagedBean
 @ViewScoped
 public class RegistrationHandler {
-	
+
 	@EJB
 	private CustomerService customerService;
-	
+
 	private Gender gender;
 	private String surname;
 	private String name;
@@ -139,8 +139,6 @@ public class RegistrationHandler {
 	/**
 	 * Registers new customer.
 	 * Returns to login page afterwards.
-	 * 
-	 * @return navigation action
 	 */
 	public String registerCustomer() {
 		Customer customer = new Customer();
@@ -155,7 +153,7 @@ public class RegistrationHandler {
 		customer.setPostalCode( this.getPostalCode() );
 		customer.setPassword( this.getPassword() );
 		
-		customerService.createCustomer(customer);
+		customerService.registerCustomer(customer);
 		
 		return "login";
 	}
