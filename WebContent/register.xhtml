@@ -80,8 +80,9 @@
 				<h:outputLabel for="postalCode" value="Postal Code" />
 				<h:inputText id="postalCode" value="#{registrationHandler.postalCode}" maxlength="7" required="true">
 					<f:validateRegex pattern="^D-[0-9]{5}$" />
+					<f:ajax render="postalCodeMessage" />
 				</h:inputText>
-				<h:outputLabel for="postalCode"><h:message for="postalCode" /></h:outputLabel>
+				<h:outputLabel for="postalCode"><h:message id="postalCodeMessage" for="postalCode" /></h:outputLabel>
 			</div>
 							
 			<div class="form-group-box">
