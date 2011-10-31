@@ -130,10 +130,10 @@ public class RegistrationHandler {
 		EmailValidator validator = EmailValidator.getInstance();
 		
 		if (!validator.isValid(email))
-			throw new ValidatorException( new FacesMessage("EMail address invalid!") );
+			throw new ValidatorException( new FacesMessage("EMail address format invalid!") );
 		
 		if (this.customerService.emailExists(email))
-			throw new ValidatorException( new FacesMessage("EMail address already used by another customer!") );
+			throw new ValidatorException( new FacesMessage("EMail address already registered to another customer!") );
 	}
 	
 	/**

@@ -19,7 +19,7 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>RentACar</web-resource-name>
-      <url-pattern>*.xhtml</url-pattern>
+      <url-pattern>/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>CONSUMER</role-name>
@@ -31,6 +31,7 @@
       <url-pattern>/images/*</url-pattern>
       <url-pattern>/css/*</url-pattern>
       <url-pattern>/http/*</url-pattern>
+      <url-pattern>/javax.faces.resource/*</url-pattern>
       <url-pattern>/register.xhtml</url-pattern>
     </web-resource-collection>
   </security-constraint>

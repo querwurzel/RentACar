@@ -2,16 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Registration</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Registration</title>
 </h:head>
 <h:body>
 
 	<h:form>
 		<fieldset>
 			<div class="form-group-box">
-				<h:outputLabel for="gender">Title</h:outputLabel>
-				<h:selectOneMenu id="gender" value="#{registrationHandler.gender}" required="true" >
+				<h:outputLabel for="gender" value="Title" />
+				<h:selectOneMenu id="gender" value="#{registrationHandler.gender}" required="true">
 					<f:selectItem itemLabel="Mrs." itemValue="FEMALE" selected="selected" />
 					<f:selectItem itemLabel="Mr." itemValue="MALE" />
 				</h:selectOneMenu>
@@ -19,7 +19,7 @@
 			</div>
 			
 			<div class="form-group-box">
-				<h:outputLabel for="surname">Surname</h:outputLabel>
+				<h:outputLabel for="surname" value="Surname" />
 				<h:inputText id="surname" value="#{registrationHandler.surname}" maxlength="255" required="true">
 					<f:validateLength maximum="255" />
 				</h:inputText>
@@ -27,7 +27,7 @@
 			</div>
 			
 			<div class="form-group-box">
-				<h:outputLabel for="name">Name</h:outputLabel>
+				<h:outputLabel for="name" value="Name" />
 				<h:inputText id="name" value="#{registrationHandler.name}" maxlength="255" required="true">
 					<f:validateLength maximum="255" />
 				</h:inputText>
@@ -35,37 +35,41 @@
 			</div>
 			
 			<div class="form-group-box">
-				<h:outputLabel for="name">Date Of Birth</h:outputLabel>
-				<f:ajax render="dateOfBirthMessage">
+				<h:outputLabel for="dateOfBirth" value="Date Of Birth" />
 				<h:inputText id="dateOfBirth" value="#{registrationHandler.dateOfBirth}" maxlength="255" required="true">
 					<f:convertDateTime dateStyle="medium" />
+					<f:ajax render="dateOfBirthMessage" />
 				</h:inputText>
 				<h:outputLabel for="dateOfBirth"><h:message id="dateOfBirthMessage" for="dateOfBirth" /></h:outputLabel>
-				</f:ajax>
 			</div>
 			
 			<div class="form-group-box">
-				<h:outputLabel for="email">EMail</h:outputLabel>
-				<h:inputText id="email" value="#{registrationHandler.email}" maxlength="255" validator="#{registrationHandler.validateEmail}" required="true">
+				<h:outputLabel for="email" value="EMail" />
+				<h:inputText id="email" value="#{registrationHandler.email}" validator="#{registrationHandler.validateEmail}" maxlength="255" required="true">
 					<f:validateLength maximum="255" />
+					<f:ajax render="emailMessage" />
 				</h:inputText>
-				<h:outputLabel for="email"><h:message for="email" /></h:outputLabel>
+				<h:outputLabel for="email"><h:message id="emailMessage" for="email" /></h:outputLabel>
 			</div>
 			
 			<div class="form-group-box">
-				<h:outputLabel for="street">Street / Number</h:outputLabel>
+				<h:outputLabel for="street" value="Street" />
 				<h:inputText id="street" value="#{registrationHandler.street}" maxlength="255" required="true">
 					<f:validateLength maximum="255" />
 				</h:inputText>
+				<h:outputLabel for="street"><h:message for="street" /></h:outputLabel>
+			</div>
+			
+			<div class="form-group-box">
+				<h:outputLabel for="number" value="House Number" />
 				<h:inputText id="number" value="#{registrationHandler.number}" maxlength="16" required="true">
 					<f:validateLength maximum="255" />
 				</h:inputText>
-				<h:outputLabel for="street"><h:message for="street" /></h:outputLabel>
 				<h:outputLabel for="number"><h:message for="number" /></h:outputLabel>
 			</div>
 			
 			<div class="form-group-box">
-				<h:outputLabel for="locality">Locality</h:outputLabel>
+				<h:outputLabel for="locality" value="Locality" />
 				<h:inputText id="locality" value="#{registrationHandler.locality}" maxlength="255" required="true">
 					<f:validateLength maximum="255" />
 				</h:inputText>
@@ -73,7 +77,7 @@
 			</div>
 			
 			<div class="form-group-box">
-				<h:outputLabel for="postalCode">Postal Code</h:outputLabel>
+				<h:outputLabel for="postalCode" value="Postal Code" />
 				<h:inputText id="postalCode" value="#{registrationHandler.postalCode}" maxlength="7" required="true">
 					<f:validateRegex pattern="^D-[0-9]{5}$" />
 				</h:inputText>
@@ -81,7 +85,7 @@
 			</div>
 							
 			<div class="form-group-box">
-				<h:outputLabel for="password">Password</h:outputLabel>
+				<h:outputLabel for="password" value="Password" />
 				<h:inputSecret id="password" value="#{registrationHandler.password}" maxlength="255" required="true">
 					<f:validateLength maximum="255" />
 				</h:inputSecret>
