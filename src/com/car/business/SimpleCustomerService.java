@@ -14,20 +14,20 @@ import com.car.domain.Customer.CustomerRole;
  */
 @Stateless
 public class SimpleCustomerService implements CustomerService {
-	
+
 	@PersistenceContext
 	private EntityManager manager;
 
 	public void createCustomer(Customer customer) {
 		customer.setRole(CustomerRole.CONSUMER);
-		
+
 		this.manager.persist(customer);
 	}
-	
+
 	public Boolean emailExists(String email) {
 		Query query = this.manager.createNamedQuery(Customer.CHECK_EMAIL, String.class);
 		query.setParameter(1, email);
-		
+
 		return query.getSingleResult() != null;
 	}
 }

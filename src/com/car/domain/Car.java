@@ -3,7 +3,6 @@ package com.car.domain;
 import java.io.Serializable;
 import java.util.Currency;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

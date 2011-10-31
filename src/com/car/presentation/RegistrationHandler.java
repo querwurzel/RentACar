@@ -38,7 +38,7 @@ public class RegistrationHandler {
 	private String password;
 
 	@PostConstruct
-	public void init() {
+	private void init() {
 		this.postalCode = "D-";
 	}
 

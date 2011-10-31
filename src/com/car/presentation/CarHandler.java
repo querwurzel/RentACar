@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import com.car.business.remote.CarService;
 import com.car.domain.Car;
@@ -69,41 +68,6 @@ public class CarHandler {
 	
 	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCar(null);
-	}
-	
-	@Deprecated
-	public void onCarTypeSelect(ValueChangeEvent event) {
-		System.out.println("onCarTypeSelect fired");
-		
-		this.setCarId(null);
-		this.setName(null);
-		this.setDescription(null);
-		this.setImage(null);
-		this.setDailyFee(null);
-		this.setCurrency(null);
-	}
-	
-	@Deprecated
-	public void onCarSelect(ValueChangeEvent event) {
-		System.out.println("onCarSelect fired");
-		
-		Long id = (Long)event.getNewValue();
-		
-		Car car = this.carService.getCar( id );
-
-		if (car == null) {
-			this.setName(null);
-			this.setDescription(null);
-			this.setImage(null);
-			this.setDailyFee(null);
-			this.setCurrency(null);
-		} else {
-			this.setName( car.getName() );
-			this.setDescription( car.getDescription() );
-			this.setImage( car.getImage() );
-			this.setDailyFee( car.getDailyFee() );
-			this.setCurrency( car.getCurrency().getCurrencyCode() );
-		}
 	}
 	
 	/**
