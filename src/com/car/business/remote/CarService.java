@@ -1,5 +1,6 @@
 package com.car.business.remote;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -11,10 +12,12 @@ import com.car.domain.query.CarTypeBasics;
 @Remote
 public interface CarService {
 
-	public List<CarTypeBasics> getAllCarTypes();
+	public List<CarTypeBasics> getCarTypes();
 
-	public List<CarBasics> getAllCars(Long carTypeId);
+	public List<CarBasics> getCars(Long carTypeId);
 
 	public Car getCar(Long carId);
+
+	public Date isRentedUntil(Long carId);
 
 }

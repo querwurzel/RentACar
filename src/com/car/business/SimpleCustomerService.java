@@ -31,7 +31,7 @@ public class SimpleCustomerService implements CustomerService {
 		customer.setRole(CustomerRole.CONSUMER);
 
 		this.manager.persist(customer);
-		
+
 		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: Registrated new customer (email: %s).", customer.getName()));
 	}
 
@@ -39,7 +39,7 @@ public class SimpleCustomerService implements CustomerService {
 		Query query = this.manager.createNamedQuery(Customer.QUERY_EMAIL, String.class);
 		query.setParameter(1, email);
 
-		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: Querying email '%s'.", email));
+		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: Queried email '%s'.", email));
 
 		return query.getResultList().size() > 0;
 	}

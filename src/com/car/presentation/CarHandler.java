@@ -26,79 +26,8 @@ public class CarHandler {
 
 	private Long carTypeId;
 	private Long carId;
-	private String name;
-	private String description;
-	private String image;
-	private Double dailyFee;
-	private String currency;
-	
-	/**
-	 * Resets all car-specific fields if current carType changed.
-	 */
-	public void updateCarType(ActionEvent event) {
-		this.setCarId(null);
-		this.setName(null);
-		this.setDescription(null);
-		this.setImage(null);
-		this.setDailyFee(null);
-		this.setCurrency(null);
-	}
-	
-	/**
-	 * Resolves all car-specific fields for the current car.
-	 * If no car was found all fields will be nulled.
-	 */
-	public void updateCar(ActionEvent event) {
-		Car car = this.carService.getCar( this.getCarId() );
-
-		if (car == null) {
-			this.setName(null);
-			this.setDescription(null);
-			this.setImage(null);
-			this.setDailyFee(null);
-			this.setCurrency(null);
-		} else {
-			this.setName( car.getName() );
-			this.setDescription( car.getDescription() );
-			this.setImage( car.getImage() );
-			this.setDailyFee( car.getDailyFee() );
-			this.setCurrency( car.getCurrency().getCurrencyCode() );
-		}
-	}
-	
-	public void updateCarTypeAsynchronous(AjaxBehaviorEvent event) {
-		this.updateCarType(null);
-	}
-	
-	public void updateCarAsynchronous(AjaxBehaviorEvent event) {
-		this.updateCar(null);
-	}
-	
-	/**
-	 * Proceeds to payment if a car was selected successfully.
-	 */
-	public String confirmCar() {
-		if (this.getCarId() == null)
-			return "index";
-
-		orderService.selectCar( this.getCarId() );
-
-		return "payment";
-	}
-
-	/**
-	 * Returns all carTypes available.
-	 */
-	public List<CarTypeBasics> getAllCarTypes() {
-		return this.carService.getAllCarTypes();
-	}
-	
-	/**
-	 * Returns all cars available for the current carType.
-	 */
-	public List<CarBasics> getAllCars() {
-		return this.carService.getAllCars( this.getCarTypeId() );
-	}
+	private Car car;
+	private Integer duration;
 
 	public Long getCarTypeId() {
 		return carTypeId;
@@ -116,43 +45,63 @@ public class CarHandler {
 		this.carId = carId;
 	}
 
-	public String getName() {
-		return name;
+	public Car getCar() {
+		return car;
 	}
 
-	private void setName(String name) {
-		this.name = name;
+	public Integer getDuration() {
+		return duration;
 	}
 
-	public String getDescription() {
-		return description;
+	public void setDuration(Integer duration) {
+		this.duration = duration;
 	}
 
-	private void setDescription(String description) {
-		this.description = description;
+	/**
+	 * Returns all carTypes available.
+	 */
+	public List<CarTypeBasics> getCarTypes() {
+		return this.carService.getCarTypes();
 	}
-
-	public String getImage() {
-		return image;
+	
+	/**
+	 * Returns all cars available for the current carType.
+	 */
+	public List<CarBasics> getCars() {
+		return (this.carTypeId == null) ? null : this.carService.getCars( this.carTypeId );
 	}
-
-	private void setImage(String image) {
-		this.image = image;
+	
+	public void selectCarType(ActionEvent event) {
+		// reset dependent attributes
+		this.carId = null;
+		this.car = null;
 	}
-
-	public Double getDailyFee() {
-		return dailyFee;
+	
+	public void selectCar(ActionEvent event) {
+		// reset or retrieve Car currently selected
+		this.car = (this.carId == null) ? null : this.carService.getCar( this.carId );
 	}
-
-	private void setDailyFee(Double dailyFee) {
-		this.dailyFee = dailyFee;
+	
+	public void selectCarTypeAsynchronous(AjaxBehaviorEvent event) {
+		this.selectCarType(null);
 	}
-
-	public String getCurrency() {
-		return currency;
+	
+	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
+		this.selectCar(null);
 	}
+	
+	/**
+	 * Proceeds to payment if a car was selected successfully.
+	 */
+	public String confirmCar() {
+		// TODO
+		
+		// abort if no car selected
+		if (this.car == null)
+			return "index";
 
-	private void setCurrency(String currency) {
-		this.currency = currency;
+		orderService.selectCar( this.getCarId() );
+
+		return "payment";
 	}
 }

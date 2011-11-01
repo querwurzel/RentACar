@@ -19,7 +19,7 @@ public class UserHandler {
 	public String logout() {
 		this.context.getExternalContext().invalidateSession();
 
-		// TODO: might be needed some days
+		// TODO: might be useful some days
 		// externalContext.getSessionMap().remove("SomeSessionBean");
 
 		return "login";

@@ -24,6 +24,7 @@ import javax.persistence.NamedQuery;
 public class Car implements Serializable {
 	
 	public static final String QUERY_CAR_BASICS_BY_CARTYPE = "Car.Basics.FindAllByCarType";
+	public static final String QUERY_CAR_AVAILABILITY = "Car.GetRentedUntil";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

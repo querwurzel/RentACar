@@ -18,49 +18,55 @@
 <h:form>
 
 	<fieldset>
-		<h:selectOneListbox style="width:150px; height:150px" id="carType" size="5" value="#{carHandler.carTypeId}" required="true">
-			<f:selectItems value="#{carHandler.allCarTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
-			<f:ajax execute="carType" render="@form" listener="#{carHandler.updateCarTypeAsynchronous}" />
+		<h:selectOneListbox id="carTypeId" size="5" value="#{carHandler.carTypeId}" required="true">
+			<f:selectItems value="#{carHandler.carTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
+			<f:ajax execute="carTypeId" render="@form" listener="#{carHandler.selectCarTypeAsynchronous}" />
 		</h:selectOneListbox>
-		<h:commandButton value="Select CarType" actionListener="#{carHandler.updateCarType}">
-			<f:ajax execute="carType" render="@form" />
+		<h:commandButton value="Select Car Type" actionListener="#{carHandler.selectCarType}">
+			<f:ajax execute="carTypeId" render="@form" />
 		</h:commandButton>
 	</fieldset>
 	
 	<fieldset>
-		<h:selectOneListbox style="width:150px; height:150px" id="car" size="5" value="#{carHandler.carId}">
-			<f:selectItems value="#{carHandler.allCars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
-			<f:ajax execute="car" render="@form" listener="#{carHandler.updateCarAsynchronous}" />
+		<h:selectOneListbox id="carId" size="5" value="#{carHandler.carId}">
+			<f:selectItems value="#{carHandler.cars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
+			<f:ajax execute="carId" render="@form" listener="#{carHandler.selectCarAsynchronous}" />
 		</h:selectOneListbox>
-		<h:commandButton value="Select Car" actionListener="#{carHandler.updateCar}">
-			<f:ajax execute="car" render="@form" />
+		<h:commandButton value="Select Car" actionListener="#{carHandler.selectCar}">
+			<f:ajax execute="carId" render="@form" />
 		</h:commandButton>
 	</fieldset>
 	
 	<fieldset>
-			
 		<h:panelGrid columns="2">
 			<h:outputText value="Name:" />
-			<h:outputText value="#{carHandler.name}" />
+			<h:outputText value="#{carHandler.car.name}" />
 			
 			<h:outputText value="Description:" />
-			<h:outputText value="#{carHandler.description}" />
+			<h:outputText value="#{carHandler.car.description}" />
 		
 			<h:outputText value="Daily Fee:" />
 			<h:panelGroup>
-			<h:outputText value="#{carHandler.dailyFee}">
-				<f:convertNumber currencyCode="#{carHandler.currency}" />
+			<h:outputText value="#{carHandler.car.dailyFee}">
+				<f:convertNumber currencyCode="#{carHandler.car.currency}" />
 			</h:outputText>
 			<span/>
-			<h:outputText value="#{carHandler.currency}" />
+			<h:outputText value="#{carHandler.car.currency}" />
 			</h:panelGroup>
 			
 			<h:outputText value="Image:" />
-			<h:graphicImage alt="" title="#{carHandler.name}" value="/images/cars/#{carHandler.image}" rendered="#{carHandler.image != null}" />
-			
-			<h:commandButton value="Rent" action="#{carHandler.confirmCar}" rendered="#{carHandler.carId != null}" />
+			<h:graphicImage alt="" title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
 		</h:panelGrid>
-
+	</fieldset>
+	
+	<fieldset>
+		<h:outputLabel value="How long?" />
+		<h:selectOneMenu required="true" value="#{carHandler.duration}">
+			<f:selectItem itemLabel="1 Day" itemValue="1" selected="selected" />
+			<f:selectItem itemLabel="2 Days" itemValue="2" />
+		</h:selectOneMenu>
+		
+		<h:commandButton value="Rent" action="#{carHandler.confirmCar}" rendered="#{carHandler.car != null}" />
 	</fieldset>
 
 </h:form>

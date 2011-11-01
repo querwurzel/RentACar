@@ -1,6 +1,6 @@
 package com.car.business;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -26,18 +26,12 @@ public class SimpleCarService implements CarService {
 	@PersistenceContext
 	private EntityManager manager;
 	
-	@SuppressWarnings("unchecked")
-	public List<CarTypeBasics> getAllCarTypes() {
-		Query query = this.manager.createNamedQuery(CarType.QUERY_CARTYPE_BASICS, CarTypeBasics.class);
-		
-		return query.getResultList();
+	public List<CarTypeBasics> getCarTypes() {
+		return this.manager.createNamedQuery(CarType.QUERY_CARTYPE_BASICS, CarTypeBasics.class).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<CarBasics> getAllCars(Long carTypeId) {
-		if (carTypeId == null)
-			return new ArrayList<CarBasics>();
-		
+	public List<CarBasics> getCars(Long carTypeId) {
 		Query query = this.manager.createNamedQuery(Car.QUERY_CAR_BASICS_BY_CARTYPE, CarBasics.class);
 		query.setParameter(1, carTypeId);
 		
@@ -45,6 +39,11 @@ public class SimpleCarService implements CarService {
 	}
 	
 	public Car getCar(Long carId) {
-		return (carId == null) ? null : this.manager.find(Car.class, carId);
+		return this.manager.find(Car.class, carId);
+	}
+
+	public Date isRentedUntil(Long carId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
