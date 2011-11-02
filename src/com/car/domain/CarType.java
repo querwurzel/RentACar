@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 })
 public class CarType implements Serializable {
 	
-	public static final String QUERY_CARTYPE_BASICS = "CarType.AllCarTypeBasics";
+	public static final String QUERY_CARTYPE_BASICS = "CarType.Basics.FindAll";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -36,12 +36,10 @@ public class SimpleCustomerService implements CustomerService {
 	}
 
 	public Boolean emailExists(String email) {
-		Query query = this.manager.createNamedQuery(Customer.QUERY_EMAIL, String.class);
+		Query query = this.manager.createNamedQuery(Customer.QUERY_EMAIL, Long.class);
 		query.setParameter(1, email);
 
-		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: Queried email '%s'.", email));
-
-		return query.getResultList().size() > 0;
+		return (Long)query.getSingleResult() > 0;
 	}
 
 	@RolesAllowed(CustomerRole.CONSUMER)
@@ -49,6 +47,8 @@ public class SimpleCustomerService implements CustomerService {
 		Query query = this.manager.createNamedQuery(Customer.QUERY_CUSTOMER_BY_EMAIL, Customer.class);
 		query.setParameter(1, context.getCallerPrincipal().getName());
 
+		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, "SimpleCustomerService: Resolving customer by credentials ..");
+		
 		return (Customer)query.getSingleResult();
 	}
 }

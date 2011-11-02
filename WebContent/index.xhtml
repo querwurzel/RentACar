@@ -1,75 +1,83 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>RentACar</title>
-</h:head>
-<h:body>
-
-<h1><h:graphicImage alt="" title="RentACar" value="/images/car.jpg" />RentACar</h1>
-
-<h:form>
-	<h:commandButton value="Logout" action="#{userHandler.logout}" />
-</h:form>
-
-<h2>Please select a car for rental</h2>
-
-<h:form>
-
-	<fieldset>
-		<h:selectOneListbox id="carTypeId" size="5" value="#{carHandler.carTypeId}" required="true">
-			<f:selectItems value="#{carHandler.carTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
-			<f:ajax execute="carTypeId" render="@form" listener="#{carHandler.selectCarTypeAsynchronous}" />
-		</h:selectOneListbox>
-		<h:commandButton value="Select Car Type" actionListener="#{carHandler.selectCarType}">
-			<f:ajax execute="carTypeId" render="@form" />
-		</h:commandButton>
-	</fieldset>
-	
-	<fieldset>
-		<h:selectOneListbox id="carId" size="5" value="#{carHandler.carId}">
-			<f:selectItems value="#{carHandler.cars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
-			<f:ajax execute="carId" render="@form" listener="#{carHandler.selectCarAsynchronous}" />
-		</h:selectOneListbox>
-		<h:commandButton value="Select Car" actionListener="#{carHandler.selectCar}">
-			<f:ajax execute="carId" render="@form" />
-		</h:commandButton>
-	</fieldset>
-	
-	<fieldset>
-		<h:panelGrid columns="2">
-			<h:outputText value="Name:" />
-			<h:outputText value="#{carHandler.car.name}" />
-			
-			<h:outputText value="Description:" />
-			<h:outputText value="#{carHandler.car.description}" />
+	<h:head>
+		<title>RentACar - Select A Car</title>
 		
-			<h:outputText value="Daily Fee:" />
-			<h:panelGroup>
-			<h:outputText value="#{carHandler.car.dailyFee}">
-				<f:convertNumber currencyCode="#{carHandler.car.currency}" />
-			</h:outputText>
-			<span/>
-			<h:outputText value="#{carHandler.car.currency}" />
-			</h:panelGroup>
-			
-			<h:outputText value="Image:" />
-			<h:graphicImage alt="" title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
-		</h:panelGrid>
-	</fieldset>
-	
-	<fieldset>
-		<h:outputLabel value="How long?" />
-		<h:selectOneMenu required="true" value="#{carHandler.duration}">
-			<f:selectItem itemLabel="1 Day" itemValue="1" selected="selected" />
-			<f:selectItem itemLabel="2 Days" itemValue="2" />
-		</h:selectOneMenu>
+		<link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
 		
-		<h:commandButton value="Rent" action="#{carHandler.confirmCar}" rendered="#{carHandler.car != null}" />
-	</fieldset>
-
-</h:form>
-
-</h:body>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</h:head>
+	<h:body>
+		<h1>RentACar</h1>
+		
+		<h:form>
+			<h:commandButton value="Logout" action="#{userHandler.logout}" />
+		</h:form>
+		
+		<h2>Please Select A Car</h2>
+		
+		<h:form>
+			<fieldset>
+				<h:panelGrid columns="2">
+			
+					<h:selectOneListbox id="carTypeId" size="5" value="#{carHandler.carTypeId}" required="true">
+						<f:selectItems value="#{carHandler.carTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
+						<f:ajax execute="carTypeId" render="@form" listener="#{carHandler.selectCarTypeAsynchronous}" />
+					</h:selectOneListbox>
+					<h:commandButton value="Select Car Type" actionListener="#{carHandler.selectCarType}" >
+						<f:ajax execute="carTypeId" render="@form" />
+					</h:commandButton>
+				
+					<h:selectOneListbox id="carId" size="5" value="#{carHandler.carId}">
+						<f:selectItems value="#{carHandler.cars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
+						<f:ajax execute="carId" render="@form" listener="#{carHandler.selectCarAsynchronous}" />
+					</h:selectOneListbox>
+					<h:commandButton value="Select Car" actionListener="#{carHandler.selectCar}">
+						<f:ajax execute="carId" render="@form" />
+					</h:commandButton>
+					
+					
+					
+						<h:outputText value="Name" />
+						<h:outputText value="#{carHandler.car.name}" />
+					
+						<h:outputText value="Description" />
+						<h:outputText value="#{carHandler.car.description}" />
+					
+						<h:outputText value="Rented until" styleClass="warning" rendered="#{carHandler.rentalDate != null}" />
+						<h:outputText value="#{carHandler.rentalDate}" styleClass="warning" rendered="#{carHandler.rentalDate != null}">
+							<f:convertDateTime dateStyle="medium" />
+						</h:outputText>
+					
+						<h:outputText value="Daily Fee" />
+						<h:panelGroup>
+							<h:outputText value="#{carHandler.car.dailyFee}">
+								<f:convertNumber currencyCode="#{carHandler.car.currency}" />
+							</h:outputText>
+							<span/>
+							<h:outputText value="#{carHandler.car.currency}" />
+						</h:panelGroup>
+						
+						<h:outputText value="Image" rendered="#{carHandler.car.image != null}" />
+						<h:graphicImage title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
+					
+					
+					
+					<h:selectOneMenu value="#{carHandler.duration}" required="true" rendered="#{carHandler.car != null and carHandler.rentalDate == null}">
+						<f:selectItem itemLabel="1 Day" itemValue="1" selected="selected" />
+						<f:selectItem itemLabel="2 Days" itemValue="2" />
+						<f:selectItem itemLabel="3 Days" itemValue="3" />
+						<f:selectItem itemLabel="4 Days" itemValue="4" />
+						<f:selectItem itemLabel="5 Days" itemValue="5" />
+						<f:selectItem itemLabel="6 Days" itemValue="6" />
+						<f:selectItem itemLabel="7 Days" itemValue="7" />
+					</h:selectOneMenu>
+					<h:commandButton value="Rent" action="#{carHandler.confirmCar}" rendered="#{carHandler.car != null and carHandler.rentalDate == null}" />
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+	</h:body>
 </html>

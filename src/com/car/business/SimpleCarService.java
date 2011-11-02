@@ -13,6 +13,7 @@ import com.car.business.remote.CarService;
 import com.car.domain.Car;
 import com.car.domain.CarType;
 import com.car.domain.Customer.CustomerRole;
+import com.car.domain.Rental;
 import com.car.domain.query.CarBasics;
 import com.car.domain.query.CarTypeBasics;
 
@@ -34,16 +35,18 @@ public class SimpleCarService implements CarService {
 	public List<CarBasics> getCars(Long carTypeId) {
 		Query query = this.manager.createNamedQuery(Car.QUERY_CAR_BASICS_BY_CARTYPE, CarBasics.class);
 		query.setParameter(1, carTypeId);
-		
+
 		return query.getResultList();
 	}
-	
+
 	public Car getCar(Long carId) {
 		return this.manager.find(Car.class, carId);
 	}
 
-	public Date isRentedUntil(Long carId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getRentalDate(Long carId) {
+		Query query = this.manager.createNamedQuery(Rental.QUERY_RENTEDUNTIL_BY_CAR);
+		query.setParameter(1, carId);
+		
+		return (Date)query.getSingleResult();
 	}
 }

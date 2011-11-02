@@ -1,30 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Payment</title>
-</h:head>
-<h:body>
-
-<h1>Payment</h1>
-
-<h:form>
-
-	<fieldset>
-		<h:outputLabel value="How would you like to pay?" />
-		<h:selectOneRadio>
-			<f:selectItems value="#{carHandler.carTypes}" />
-		</h:selectOneRadio>
-	</fieldset>
-
-	<fieldset>
-		<h:commandButton value="Proceed" />
+	<h:head>
+		<title>RentACar - Payment</title>
 		
-		<h:commandButton value="Abort" action="#{paymentHandler.abortPayment}" immediate="true" />
-	</fieldset>
+		<link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</h:head>
+	<h:body>
+		<h1>RentACar</h1>
 
-</h:form>
+		<h2>Payment</h2>
 
-</h:body>
+		<h:form>
+		
+			<fieldset>
+				<h:outputLabel value="How would you like to pay?" />
+				<h:selectOneRadio>
+					<f:selectItems value="#{carHandler.carTypes}" />
+				</h:selectOneRadio>
+			</fieldset>
+		
+			<fieldset>
+				<h:commandButton value="Proceed" />
+				
+				<h:commandButton value="Abort" action="#{paymentHandler.abortPayment}" immediate="true" />
+			</fieldset>
+		
+		</h:form>
+	</h:body>
 </html>

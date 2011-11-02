@@ -18,6 +18,6 @@ public interface CarService {
 
 	public Car getCar(Long carId);
 
-	public Date isRentedUntil(Long carId);
+	public Date getRentalDate(Long carId);
 
 }

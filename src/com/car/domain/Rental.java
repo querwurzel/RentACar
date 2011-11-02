@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,8 +18,13 @@ import javax.persistence.TemporalType;
  * Entity implementation class for Entity: Rental
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(name = Rental.QUERY_RENTEDUNTIL_BY_CAR, query = "SELECT MAX(r.rentedUntil) FROM Rental r WHERE r.car.id = ?1")
+})
 public class Rental implements Serializable {
 
+	public static final String QUERY_RENTEDUNTIL_BY_CAR = "Rental.RentedUntil.FindByCar";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -44,7 +51,7 @@ public class Rental implements Serializable {
 	public Rental() {
 		super();
 	}
-	
+
 	public Long getId() {
 		return this.id;
 	}

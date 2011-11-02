@@ -1,5 +1,6 @@
 package com.car.presentation;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -24,13 +25,23 @@ public class CarHandler {
 	@EJB
 	private OrderService orderService;
 
+	private Integer duration;
 	private Long carTypeId;
 	private Long carId;
-	private Car car;
-	private Integer duration;
 
+	private Car car;
+	private Date rentedUntil;
+
+	public Integer getDuration() {
+		return this.duration;
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+	
 	public Long getCarTypeId() {
-		return carTypeId;
+		return this.carTypeId;
 	}
 
 	public void setCarTypeId(Long carTypeId) {
@@ -38,7 +49,7 @@ public class CarHandler {
 	}
 
 	public Long getCarId() {
-		return carId;
+		return this.carId;
 	}
 
 	public void setCarId(Long carId) {
@@ -46,17 +57,13 @@ public class CarHandler {
 	}
 
 	public Car getCar() {
-		return car;
+		return this.car;
 	}
-
-	public Integer getDuration() {
-		return duration;
+	
+	public Date getRentalDate() {
+		return this.rentedUntil;
 	}
-
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
-
+	
 	/**
 	 * Returns all carTypes available.
 	 */
@@ -68,39 +75,39 @@ public class CarHandler {
 	 * Returns all cars available for the current carType.
 	 */
 	public List<CarBasics> getCars() {
-		return (this.carTypeId == null) ? null : this.carService.getCars( this.carTypeId );
+		return this.carService.getCars(this.carTypeId);
 	}
-	
+
 	public void selectCarType(ActionEvent event) {
 		// reset dependent attributes
 		this.carId = null;
 		this.car = null;
+		this.rentedUntil = null;
 	}
-	
-	public void selectCar(ActionEvent event) {
-		// reset or retrieve Car currently selected
-		this.car = (this.carId == null) ? null : this.carService.getCar( this.carId );
-	}
-	
+
 	public void selectCarTypeAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCarType(null);
+	}
+
+	public void selectCar(ActionEvent event) {
+		// reset or retrieve car information
+		this.car = (this.carId == null) ? null : this.carService.getCar(this.carId);
+		this.rentedUntil = (this.carId == null) ? null : this.carService.getRentalDate(this.carId);
 	}
 	
 	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCar(null);
 	}
-	
+
 	/**
 	 * Proceeds to payment if a car was selected successfully.
 	 */
 	public String confirmCar() {
-		// TODO
-		
-		// abort if no car selected
-		if (this.car == null)
+		// no car selected or car already rented
+		if (this.car == null || this.rentedUntil != null)
 			return "index";
 
-		orderService.selectCar( this.getCarId() );
+		orderService.selectCar(this.car);
 
 		return "payment";
 	}

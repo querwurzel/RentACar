@@ -19,12 +19,11 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Car.QUERY_CAR_BASICS_BY_CARTYPE, query = "SELECT NEW com.car.domain.query.CarBasics(c.id, c.name) FROM Car c WHERE c.carType.id = ?1 ORDER BY c.name")
+	@NamedQuery(name = Car.QUERY_CAR_BASICS_BY_CARTYPE, query = "SELECT NEW com.car.domain.query.CarBasics(c.id, c.name) FROM Car c WHERE c.carType.id = ?1 ORDER BY c.name"),
 })
 public class Car implements Serializable {
 	
 	public static final String QUERY_CAR_BASICS_BY_CARTYPE = "Car.Basics.FindAllByCarType";
-	public static final String QUERY_CAR_AVAILABILITY = "Car.GetRentedUntil";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -52,9 +52,11 @@ public class Bootstrap {
     	
     	CarType ct1 = new CarType("BMW");
     	CarType ct2 = new CarType("Mercedes");
+    	CarType ct3 = new CarType("Audi");
     	
     	manager.persist( ct1 );
 		manager.persist( ct2 );
+		manager.persist( ct3 );
 		
 		Car c11 = new Car();
 		c11.setCarType( ct1 );
@@ -119,7 +121,7 @@ public class Bootstrap {
 		
 		// past
 		Rental r1 = new Rental();
-		r1.setCar(c21);
+		r1.setCar(c11);
 		r1.setCustomer(cust);
 		r1.setOrder(o1);
 		r1.setDateRented( new Date(System.currentTimeMillis() - 30000000000L) );

@@ -11,6 +11,7 @@ import javax.ejb.Stateful;
 
 import com.car.business.remote.CustomerService;
 import com.car.business.remote.OrderService;
+import com.car.domain.Car;
 import com.car.domain.Customer.CustomerRole;
 import com.car.domain.Payment;
 
@@ -30,10 +31,10 @@ public class SimpleOrderService implements OrderService {
 	private Long carId;
 	private Payment payment;
 	
-	public void selectCar(Long carId) {
+	public void selectCar(Car car) {
+		
 		Logger.getLogger(SimpleOrderService.class.getName()).log(Level.INFO, String.format("Car (id: %d) was selected for rental.", carId));
 		
-		this.carId = carId;
 	}
 
 	public void selectPayment(Payment payment) {
@@ -45,5 +46,10 @@ public class SimpleOrderService implements OrderService {
 		this.payment = null;
 		
 		Logger.getLogger(SimpleOrderService.class.getName()).log(Level.INFO, String.format("Order aborted by customer (email: %s).", this.context.getCallerPrincipal()));
+	}
+
+	public void confirmOrder() {
+		// TODO Auto-generated method stub
+		
 	}
 }

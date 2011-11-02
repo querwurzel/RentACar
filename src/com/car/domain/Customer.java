@@ -22,12 +22,12 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT c.email FROM Customer c WHERE c.email = ?1"),
+	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT COUNT(c.email) FROM Customer c WHERE c.email = ?1"),
 	@NamedQuery(name = Customer.QUERY_CUSTOMER_BY_EMAIL, query = "SELECT c FROM Customer c WHERE c.email = ?1")
 })
 public class Customer implements Serializable {
 
-	public static final String QUERY_EMAIL = "Customer.Email.FindByEmail";
+	public static final String QUERY_EMAIL = "Customer.Email.CountByEmail";
 
 	public static final String QUERY_CUSTOMER_BY_EMAIL = "Customer.FindByEmail";
 	
@@ -180,6 +180,5 @@ public class Customer implements Serializable {
 		public static final String RESELLER = "RESELLER";
 
 		// to be continued
-
 	}
 }
