@@ -32,7 +32,7 @@ public class SimpleCustomerService implements CustomerService {
 
 		this.manager.persist(customer);
 
-		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: Registrated new customer (email: %s).", customer.getName()));
+		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: New customer registrated (email: %s).", customer.getEmail()));
 	}
 
 	public Boolean emailExists(String email) {
@@ -47,8 +47,6 @@ public class SimpleCustomerService implements CustomerService {
 		Query query = this.manager.createNamedQuery(Customer.QUERY_CUSTOMER_BY_EMAIL, Customer.class);
 		query.setParameter(1, context.getCallerPrincipal().getName());
 
-		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, "SimpleCustomerService: Resolving customer by credentials ..");
-		
 		return (Customer)query.getSingleResult();
 	}
 }

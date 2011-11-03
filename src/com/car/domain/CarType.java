@@ -3,7 +3,6 @@ package com.car.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +30,7 @@ public class CarType implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String name;
 	
-	@OneToMany(mappedBy = "carType", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "carType")
 	private List<Car> cars;
 	
 	private static final long serialVersionUID = 1L;

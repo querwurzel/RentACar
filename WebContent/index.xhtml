@@ -38,34 +38,28 @@
 						<f:ajax execute="carId" render="@form" />
 					</h:commandButton>
 					
-					
-					
-						<h:outputText value="Name" />
-						<h:outputText value="#{carHandler.car.name}" />
-					
-						<h:outputText value="Description" />
-						<h:outputText value="#{carHandler.car.description}" />
-					
-						<h:outputText value="Rented until" styleClass="warning" rendered="#{carHandler.rentalDate != null}" />
-						<h:outputText value="#{carHandler.rentalDate}" styleClass="warning" rendered="#{carHandler.rentalDate != null}">
-							<f:convertDateTime dateStyle="medium" />
+					<h:outputText value="Name" />
+					<h:outputText value="#{carHandler.car.name}" />
+				
+					<h:outputText value="Description" />
+					<h:outputText value="#{carHandler.car.description}" />
+				
+					<h:outputText value="Status" styleClass="warning" rendered="#{carHandler.isRented}" />
+					<h:outputText value="Rented" styleClass="warning" rendered="#{carHandler.isRented}" />
+				
+					<h:outputText value="Daily Fee" />
+					<h:panelGroup>
+						<h:outputText value="#{carHandler.car.dailyFee}">
+							<f:convertNumber currencyCode="#{carHandler.car.currency}" />
 						</h:outputText>
+						<span/>
+						<h:outputText value="#{carHandler.car.currency}" />
+					</h:panelGroup>
 					
-						<h:outputText value="Daily Fee" />
-						<h:panelGroup>
-							<h:outputText value="#{carHandler.car.dailyFee}">
-								<f:convertNumber currencyCode="#{carHandler.car.currency}" />
-							</h:outputText>
-							<span/>
-							<h:outputText value="#{carHandler.car.currency}" />
-						</h:panelGroup>
-						
-						<h:outputText value="Image" rendered="#{carHandler.car.image != null}" />
-						<h:graphicImage title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
+					<h:outputText value="Image" />
+					<h:graphicImage title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
 					
-					
-					
-					<h:selectOneMenu value="#{carHandler.duration}" required="true" rendered="#{carHandler.car != null and carHandler.rentalDate == null}">
+					<h:selectOneMenu value="#{carHandler.duration}" required="true" rendered="#{carHandler.car != null and !carHandler.isRented}">
 						<f:selectItem itemLabel="1 Day" itemValue="1" selected="selected" />
 						<f:selectItem itemLabel="2 Days" itemValue="2" />
 						<f:selectItem itemLabel="3 Days" itemValue="3" />
@@ -74,8 +68,7 @@
 						<f:selectItem itemLabel="6 Days" itemValue="6" />
 						<f:selectItem itemLabel="7 Days" itemValue="7" />
 					</h:selectOneMenu>
-					<h:commandButton value="Rent" action="#{carHandler.confirmCar}" rendered="#{carHandler.car != null and carHandler.rentalDate == null}" />
-					
+					<h:commandButton value="Rent" action="#{carHandler.confirmCar}" rendered="#{carHandler.car != null and !carHandler.isRented}" />
 				</h:panelGrid>
 			</fieldset>
 		</h:form>

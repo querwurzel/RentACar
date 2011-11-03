@@ -177,8 +177,7 @@ public class Customer implements Serializable {
 
 		public static final String CONSUMER = "CONSUMER";
 
-		public static final String RESELLER = "RESELLER";
-
 		// to be continued
+
 	}
 }

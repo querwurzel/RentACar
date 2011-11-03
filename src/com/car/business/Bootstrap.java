@@ -19,7 +19,6 @@ import com.car.domain.Customer;
 import com.car.domain.Customer.CustomerRole;
 import com.car.domain.Customer.Gender;
 import com.car.domain.Invoice;
-import com.car.domain.Order;
 import com.car.domain.Rental;
 
 /**
@@ -33,7 +32,8 @@ public class Bootstrap {
 	@PersistenceContext
 	private EntityManager manager;
 
-    @PostConstruct
+	@PostConstruct
+	@SuppressWarnings("unused")
     private void init() {
     	Customer cust = new Customer();
 		cust.setName("Name");
@@ -65,7 +65,6 @@ public class Bootstrap {
 		c11.setImage("69f4af110693fcf5bd5472f7d1b58f6e.jpg");
 		c11.setDailyFee(90.0);
 		c11.setCurrency( Currency.getInstance("EUR") );
-		ct1.getCars().add(c11);
 		
 		Car c12 = new Car();
 		c12.setCarType( ct1 );
@@ -74,7 +73,6 @@ public class Bootstrap {
 		c12.setImage("612e6aa528346c820efbff5e7f9304ff.jpg");
 		c12.setDailyFee(49.9);
 		c12.setCurrency( Currency.getInstance("EUR") );
-		ct1.getCars().add(c12);
 		
 		Car c21 = new Car();
 		c21.setCarType( ct2 );
@@ -83,7 +81,6 @@ public class Bootstrap {
 		c21.setImage("a140ebb3ce43c32127e435bcc7e73d1f.jpg");
 		c21.setDailyFee(60.0);
 		c21.setCurrency( Currency.getInstance("EUR") );
-		ct2.getCars().add(c21);
 		
 		manager.persist( c11 );
 		manager.persist( c12 );
@@ -101,37 +98,23 @@ public class Bootstrap {
 		manager.persist(invoice);
 		manager.flush();
 		
-		Order o1 = new Order();
-		o1.setOrderNumber(1000L);
-		o1.setAmount(200.0);
-		o1.setCurrency( Currency.getInstance("EUR") );
-		o1.setPayment(card);
-		o1.setDateCreated( new Date() );
-		
-		Order o2 = new Order();
-		o2.setOrderNumber(2000L);
-		o2.setAmount(100.0);
-		o2.setCurrency( Currency.getInstance("EUR") );
-		o2.setPayment(invoice);
-		o2.setDateCreated( new Date() );
-		
-		manager.persist(o1);
-		manager.persist(o2);
-		manager.flush();
-		
 		// past
 		Rental r1 = new Rental();
+		r1.setAmount(200.0);
+		r1.setCurrency( Currency.getInstance("EUR") );
+		r1.setPayment(card);
 		r1.setCar(c11);
 		r1.setCustomer(cust);
-		r1.setOrder(o1);
 		r1.setDateRented( new Date(System.currentTimeMillis() - 30000000000L) );
 		r1.setRentedUntil( new Date(System.currentTimeMillis() - 20000000000L) );
 		
 		// present
 		Rental r2 = new Rental();
+		r2.setAmount(100.0);
+		r2.setCurrency( Currency.getInstance("EUR") );
+		r2.setPayment(invoice);
 		r2.setCar(c11);
 		r2.setCustomer(cust);
-		r2.setOrder(o2);
 		r2.setDateRented( new Date() );
 		r2.setRentedUntil( new Date(System.currentTimeMillis() + 30000000000L) );
 		

@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Entity
 public class Invoice extends Payment implements Serializable {
 
-	@Column(nullable = false, unique = true, updatable = false)
+	@Column(nullable = false, unique = true)
 	private Long invoiceNumber;
 
 	private static final long serialVersionUID = 1L;

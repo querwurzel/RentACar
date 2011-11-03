@@ -36,6 +36,7 @@ public class RegistrationHandler {
 	private String password;
 
 	@PostConstruct
+	@SuppressWarnings("unused")
 	private void init() {
 		this.postalCode = "D-";
 	}

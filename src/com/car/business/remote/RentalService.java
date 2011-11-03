@@ -6,14 +6,14 @@ import com.car.domain.Car;
 import com.car.domain.Payment;
 
 @Remote
-public interface OrderService {
+public interface RentalService {
 
-	public void selectCar(Car car);
+	public void selectCar(Car car, Integer duration);
 
 	public void selectPayment(Payment payment);
 
-	public void abortOrder();
+	public void abortRental();
 
-	public void confirmOrder();
+	public void confirmRental() throws RuntimeException;
 
 }

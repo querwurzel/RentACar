@@ -6,14 +6,14 @@ import javax.faces.bean.ViewScoped;
 
 import com.car.business.remote.CarService;
 import com.car.business.remote.CustomerService;
-import com.car.business.remote.OrderService;
+import com.car.business.remote.RentalService;
 
 @ManagedBean
 @ViewScoped
-public class OrderHandler {
+public class RentalHandler {
 	
 	@EJB
-	private OrderService orderService;
+	private RentalService rentalService;
 	
 	@EJB
 	private CustomerService customerService;
@@ -23,8 +23,8 @@ public class OrderHandler {
 	
 	
 	
-	public String abortOrder() {
-		this.orderService.abortOrder();
+	public String abortRental() {
+		this.rentalService.abortRental();
 		
 		return "index";
 	}

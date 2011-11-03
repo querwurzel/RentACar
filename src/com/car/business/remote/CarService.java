@@ -1,6 +1,5 @@
 package com.car.business.remote;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -18,6 +17,6 @@ public interface CarService {
 
 	public Car getCar(Long carId);
 
-	public Date getRentalDate(Long carId);
+	public Boolean isRented(Long carId);
 
 }

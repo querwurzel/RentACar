@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.car.business.remote.OrderService;
+import com.car.business.remote.RentalService;
 import com.car.domain.Payment;
 
 @ManagedBean
@@ -12,7 +12,7 @@ import com.car.domain.Payment;
 public class PaymentHandler {
 	
 	@EJB
-	private OrderService orderService;
+	private RentalService rentalService;
 	
 	private Payment payment;
 	
@@ -24,7 +24,7 @@ public class PaymentHandler {
 	}
 	
 	public String abortPayment() {
-		this.orderService.abortOrder();
+		this.rentalService.abortRental();
 		
 		return "index";
 	}

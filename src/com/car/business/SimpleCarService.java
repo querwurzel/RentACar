@@ -43,10 +43,12 @@ public class SimpleCarService implements CarService {
 		return this.manager.find(Car.class, carId);
 	}
 
-	public Date getRentalDate(Long carId) {
+	public Boolean isRented(Long carId) {
 		Query query = this.manager.createNamedQuery(Rental.QUERY_RENTEDUNTIL_BY_CAR);
 		query.setParameter(1, carId);
 		
-		return (Date)query.getSingleResult();
+		Date rentedUntil = (Date)query.getSingleResult();
+		
+		return (rentedUntil == null) ? false : (rentedUntil.getTime() > System.currentTimeMillis());
 	}
 }

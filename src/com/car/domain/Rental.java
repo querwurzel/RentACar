@@ -1,8 +1,10 @@
 package com.car.domain;
 
 import java.io.Serializable;
+import java.util.Currency;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -30,21 +33,28 @@ public class Rental implements Serializable {
 	private Long id;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false)
 	private Date dateRented;
 
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date rentedUntil;
+	
+	@Column(nullable = false)
+	private Double amount;
 
+	@Column(nullable = false)
+	private String currency;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false)
+	private Payment payment;
+	
 	@JoinColumn(nullable = false)
 	private Customer customer;
 
 	@JoinColumn(nullable = false)
 	private Car car;
-
-	@JoinColumn(nullable = false)
-	private Order order;
 
 	private static final long serialVersionUID = 1L;
 
@@ -56,6 +66,22 @@ public class Rental implements Serializable {
 		return this.id;
 	}
 
+	public Double getAmount() {
+		return this.amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public Currency getCurrency() {
+		return Currency.getInstance(currency);
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency.getCurrencyCode();
+	}
+	
 	public Date getDateRented() {
 		return this.dateRented;
 	}
@@ -79,7 +105,7 @@ public class Rental implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
+	
 	public Car getCar() {
 		return car;
 	}
@@ -88,11 +114,11 @@ public class Rental implements Serializable {
 		this.car = car;
 	}
 
-	public Order getOrder() {
-		return order;
+	public Payment getPayment() {
+		return payment;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 }

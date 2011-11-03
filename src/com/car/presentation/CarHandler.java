@@ -1,6 +1,5 @@
 package com.car.presentation;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -10,7 +9,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import com.car.business.remote.CarService;
-import com.car.business.remote.OrderService;
+import com.car.business.remote.RentalService;
 import com.car.domain.Car;
 import com.car.domain.query.CarBasics;
 import com.car.domain.query.CarTypeBasics;
@@ -23,14 +22,14 @@ public class CarHandler {
 	private CarService carService;
 
 	@EJB
-	private OrderService orderService;
+	private RentalService rentalService;
 
 	private Integer duration;
 	private Long carTypeId;
 	private Long carId;
 
 	private Car car;
-	private Date rentedUntil;
+	private Boolean isRented;
 
 	public Integer getDuration() {
 		return this.duration;
@@ -60,8 +59,8 @@ public class CarHandler {
 		return this.car;
 	}
 	
-	public Date getRentalDate() {
-		return this.rentedUntil;
+	public Boolean getIsRented() {
+		return this.isRented;
 	}
 	
 	/**
@@ -82,7 +81,7 @@ public class CarHandler {
 		// reset dependent attributes
 		this.carId = null;
 		this.car = null;
-		this.rentedUntil = null;
+		this.isRented = null;
 	}
 
 	public void selectCarTypeAsynchronous(AjaxBehaviorEvent event) {
@@ -92,7 +91,7 @@ public class CarHandler {
 	public void selectCar(ActionEvent event) {
 		// reset or retrieve car information
 		this.car = (this.carId == null) ? null : this.carService.getCar(this.carId);
-		this.rentedUntil = (this.carId == null) ? null : this.carService.getRentalDate(this.carId);
+		this.isRented = (this.carId == null) ? null : this.carService.isRented(this.carId);
 	}
 	
 	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
@@ -104,10 +103,10 @@ public class CarHandler {
 	 */
 	public String confirmCar() {
 		// no car selected or car already rented
-		if (this.car == null || this.rentedUntil != null)
+		if (this.car == null || this.isRented)
 			return "index";
 
-		orderService.selectCar(this.car);
+		rentalService.selectCar(this.car, this.duration);
 
 		return "payment";
 	}
