@@ -20,7 +20,7 @@
 		
 		<h:form>
 			<fieldset>
-				<h:panelGrid columns="2">
+				
 			
 					<h:selectOneListbox id="carTypeId" size="5" value="#{carHandler.carTypeId}" required="true">
 						<f:selectItems value="#{carHandler.carTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
@@ -37,6 +37,10 @@
 					<h:commandButton value="Select Car" actionListener="#{carHandler.selectCar}">
 						<f:ajax execute="carId" render="@form" />
 					</h:commandButton>
+			</fieldset>
+			
+			<fieldset>
+				<h:panelGrid columns="2">	
 					
 					<h:outputText value="Name" />
 					<h:outputText value="#{carHandler.car.name}" />
@@ -58,6 +62,8 @@
 					
 					<h:outputText value="Image" />
 					<h:graphicImage title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
+					
+					
 					
 					<h:selectOneMenu value="#{carHandler.duration}" required="true" rendered="#{carHandler.car != null and !carHandler.isRented}">
 						<f:selectItem itemLabel="1 Day" itemValue="1" selected="selected" />

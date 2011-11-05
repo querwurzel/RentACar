@@ -84,6 +84,7 @@ public class Bootstrap {
 		
 		manager.persist( c11 );
 		manager.persist( c12 );
+		manager.persist( c21 );
 		
 		CreditCard card = new CreditCard();
 		card.setDateOfPayment( new Date() );

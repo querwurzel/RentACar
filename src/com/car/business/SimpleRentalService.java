@@ -17,6 +17,7 @@ import com.car.business.remote.CustomerService;
 import com.car.business.remote.RentalService;
 import com.car.domain.Car;
 import com.car.domain.Customer.CustomerRole;
+import com.car.domain.Invoice;
 import com.car.domain.Payment;
 import com.car.domain.Rental;
 
@@ -55,8 +56,20 @@ public class SimpleRentalService implements RentalService {
 	}
 
 	public void selectPayment(Payment payment) {
-		// set payment
+		// default date of payment
+		payment.setDateOfPayment( new Date() );
 		
+		if (payment instanceof Invoice) {
+			// date of payment for invoice: 14 days
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DAY_OF_YEAR, 14);
+			payment.setDateOfPayment( cal.getTime() );
+			
+			// use nanoTime() as unique invoice number
+			((Invoice) payment).setInvoiceNumber( System.nanoTime() );
+		}
+		
+		this.rental.setPayment(payment);
 	}
 
 	public void abortRental() {
