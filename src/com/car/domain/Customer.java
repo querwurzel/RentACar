@@ -1,33 +1,82 @@
 package com.car.domain;
 
 import java.io.Serializable;
-import java.lang.Boolean;
-import java.lang.Long;
-import java.lang.String;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Entity implementation class for Entity: Customer
- * 
  */
 @Entity
+@NamedQueries({
+	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT COUNT(c.email) FROM Customer c WHERE c.email = ?1"),
+	@NamedQuery(name = Customer.QUERY_CUSTOMER_BY_EMAIL, query = "SELECT c FROM Customer c WHERE c.email = ?1")
+})
 public class Customer implements Serializable {
 
+	public static final String QUERY_EMAIL = "Customer.Email.CountByEmail";
+
+	public static final String QUERY_CUSTOMER_BY_EMAIL = "Customer.FindByEmail";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Boolean gender;
+
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
+
+	@Column(nullable = false)
 	private String name;
+
+	@Column(nullable = false)
 	private String surname;
-	private Date birthday;
-	private String email;
-	private String address;
+
+	@Column(nullable = false)
+	private String street;
+	
+	@Column(nullable = false)
+	private String number;
+
+	@Column(nullable = false)
 	private String locality;
+
+	@Column(nullable = false, length = 7)
 	private String postalCode;
+
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date dateOfBirth;
+	
+	@Column(nullable = false, unique = true)
+	private String email;
+	
+	@Column(nullable = false)
 	private String password;
+	
+	@Column(nullable = false)
+	private String role;
+	
 	private static final long serialVersionUID = 1L;
 
+	public enum Gender {
+		FEMALE,
+		MALE
+	}
+	
 	public Customer() {
 		super();
 	}
@@ -36,11 +85,11 @@ public class Customer implements Serializable {
 		return this.id;
 	}
 
-	public Boolean getGender() {
-		return this.gender;
+	public Gender getGender() {
+		return gender;
 	}
 
-	public void setGender(Boolean gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -60,14 +109,6 @@ public class Customer implements Serializable {
 		this.surname = surname;
 	}
 
-	public Date getBirthday() {
-		return this.birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
 	public String getEmail() {
 		return this.email;
 	}
@@ -76,12 +117,20 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public String getAddress() {
-		return this.address;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
 	public String getLocality() {
@@ -105,6 +154,30 @@ public class Customer implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = DigestUtils.sha512Hex(password);
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public final class CustomerRole {
+
+		public static final String CONSUMER = "CONSUMER";
+
+		// to be continued
+
 	}
 }

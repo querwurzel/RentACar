@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+	<h:head>
+		<title>RentACar - Checkout</title>
+		
+		<link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</h:head>
+	<h:body>
+		<h1>RentACar</h1>
+		
+		<h2>Please Verify Your Order</h2>
+
+		<h:form>
+			<fieldset>
+				<h:messages styleClass="warning" layout="table"/>
+			
+				<h:panelGrid columns="2">
+					<h:outputText value="Car" />
+					<h:outputText value="#{rentalHandler.rental.car.name}" />
+					
+					<h:outputText value="Fee" />
+					<h:outputText value="#{rentalHandler.rental.amount}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+					
+					<h:outputText value="Payment" />
+					<h:outputText value="#{rentalHandler.rental.payment.toString()}" />
+					
+					<h:outputText value="Rental until" />
+					<h:outputText value="#{rentalHandler.rental.rentedUntil}">
+						<f:convertDateTime dateStyle="medium" />
+					</h:outputText>
+				</h:panelGrid>
+			</fieldset>
+			<fieldset>
+				<h:commandButton value="Confirm" action="#{rentalHandler.confirmRental}" />
+				<h:commandButton value="Cancel" action="#{rentalHandler.cancelRental}" />
+			</fieldset>
+		</h:form>
+		
+		<h:form id="form-logout">
+			<h:commandButton value="Logout" action="#{userHandler.logout}" />
+		</h:form>
+		
+	</h:body>
+</html>

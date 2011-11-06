@@ -1,13 +1,82 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>RentACar</title>
-</head>
-<body>
+	<h:head>
+		<title>RentACar - Select A Car</title>
+		
+		<link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</h:head>
+	<h:body>
+		<h1>RentACar</h1>
 
-<h1>RentACar</h1>
+		<h2>Please Select A Car For Rental</h2>
 
-</body>
+		<h3><h:message for="rental" id="rental" styleClass="notification" /></h3>
+		
+		<h:form>
+			<fieldset id="form-car-input">
+				<h:panelGrid columns="5">
+					<h:selectOneListbox id="carTypeId" size="5" value="#{carHandler.carTypeId}" required="true">
+						<f:selectItems value="#{carHandler.carTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
+						<f:ajax execute="@form" render="@form" listener="#{carHandler.selectCarTypeAsynchronous}" />
+					</h:selectOneListbox>
+					<h:commandButton value="Select Type" actionListener="#{carHandler.selectCarType}" />
+				
+					<h:commandButton value="Select Car" actionListener="#{carHandler.selectCar}" />
+					<h:selectOneListbox id="carId" size="5" value="#{carHandler.carId}">
+						<f:selectItems value="#{carHandler.cars}" var="c" itemLabel="#{c.name}" itemValue="#{c.id}" />
+						<f:ajax execute="@form" render="@form" listener="#{carHandler.selectCarAsynchronous}" />
+					</h:selectOneListbox>
+					
+					<h:selectOneMenu value="#{carHandler.duration}" required="true">
+						<f:selectItem itemLabel="1 Day" itemValue="1"  />
+						<f:selectItem itemLabel="2 Days" itemValue="2" />
+						<f:selectItem itemLabel="3 Days" itemValue="3" />
+						<f:selectItem itemLabel="4 Days" itemValue="4" />
+						<f:selectItem itemLabel="5 Days" itemValue="5" />
+						<f:selectItem itemLabel="6 Days" itemValue="6" />
+						<f:selectItem itemLabel="7 Days" itemValue="7" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Car Details</legend>
+
+				<h:panelGrid columns="2">	
+					
+					<h:outputText value="Name" />
+					<h:outputText value="#{carHandler.car.name}" />
+				
+					<h:outputText value="Description" />
+					<h:outputText value="#{carHandler.car.description}" />
+				
+					<h:outputText value="Daily Fee" />
+					<h:outputText value="#{carHandler.car.dailyFee}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+					
+					<h:outputText value="Status" styleClass="warning" rendered="#{carHandler.isRented}" />
+					<h:outputText value="Rented" styleClass="warning" rendered="#{carHandler.isRented}" />
+					
+					<h:outputText value="Image" />
+					<h:graphicImage title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
+					
+				</h:panelGrid>
+			</fieldset>
+			
+			<h:panelGroup rendered="#{carHandler.car != null and !carHandler.isRented}">
+			<fieldset>
+				<h:commandButton value="Rent" action="#{carHandler.confirmCar}"  />
+			</fieldset>
+			</h:panelGroup>
+		</h:form>
+		
+		<h:form id="form-logout">
+			<h:commandButton value="Logout" action="#{userHandler.logout}" />
+		</h:form>
+	</h:body>
 </html>

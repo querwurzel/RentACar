@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+	<h:head>
+		<title>RentACar - Payment</title>
+		
+		<link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</h:head>
+	<h:body>
+		<h1>RentACar</h1>
+
+		<h2>Please Choose A Method Of Payment</h2>
+
+		<h:form>
+			<fieldset>
+				<legend>Invoice</legend>
+				
+				<h:panelGrid columns="2">
+					<h:outputText value="Pay per invoice within 14 days." />
+					<h:commandButton value="Select" action="#{paymentHandler.confirmInvoice}" immediate="true" />
+				</h:panelGrid>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Credit Card</legend>
+
+				<h:panelGrid columns="2">
+					<h:outputText value="Pay with credit card easily and quickly." />
+					<h:commandButton value="Select" action="#{paymentHandler.confirmCreditCard}" />
+				</h:panelGrid>
+					
+				<h:panelGrid columns="3">
+					<h:outputLabel for="owner" value="Owner" />
+					<h:inputText id="owner" value="#{paymentHandler.owner}" required="true" />
+					<h:outputLabel for="owner"><h:message for="owner" /></h:outputLabel>
+					
+					<h:outputLabel for="number" value="Number" />
+					<h:inputText id="number" value="#{paymentHandler.number}" maxlength="18" required="true">
+						<f:validateLength minimum="16" />
+						<f:validateLongRange minimum="1000000000000000" />
+						<f:ajax render="numberMessage" />
+					</h:inputText>
+					<h:outputLabel for="number"><h:message id="numberMessage" for="number" /></h:outputLabel>
+				</h:panelGrid>
+			</fieldset>
+		
+			<fieldset>
+				<h:commandButton value="Cancel" action="#{rentalHandler.cancelRental}" immediate="true" />
+			</fieldset>
+		</h:form>
+		
+		<h:form id="form-logout">
+			<h:commandButton value="Logout" action="#{userHandler.logout}" />
+		</h:form>
+		
+	</h:body>
+</html>
