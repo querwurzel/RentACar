@@ -9,7 +9,7 @@
 <application>
 	<message-bundle>com.car.presentation.car</message-bundle>
 	<locale-config>
-	    <default-locale>en</default-locale>
+		<supported-locale>en</supported-locale>
 	</locale-config>
 </application>
 

@@ -75,7 +75,7 @@ public class Rental implements Serializable {
 	}
 
 	public Currency getCurrency() {
-		return Currency.getInstance(currency);
+		return Currency.getInstance(this.currency);
 	}
 
 	public void setCurrency(Currency currency) {

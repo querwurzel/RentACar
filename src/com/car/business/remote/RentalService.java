@@ -4,16 +4,15 @@ import javax.ejb.Remote;
 
 import com.car.domain.Car;
 import com.car.domain.Payment;
+import com.car.domain.Rental;
 
 @Remote
 public interface RentalService {
 
-	public void selectCar(Car car, Integer duration);
-
-	public void selectPayment(Payment payment);
-
-	public void abortRental();
-
-	public void confirmRental() throws RuntimeException;
+	public Rental commitCar(Rental rental, Car car, Integer duration);
+	
+	public Rental commitPayment(Rental rental, Payment payment);
+	
+	public Rental commitRental(Rental rental);
 
 }

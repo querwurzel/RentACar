@@ -12,15 +12,39 @@
 	<h:body>
 		<h1>RentACar</h1>
 		
-		<h2>Checkout</h2>
+		<h2>Please Verify Your Order</h2>
 
 		<h:form>
-		
 			<fieldset>
-				<h:commandButton value="Confirm" />
-				<h:commandButton value="Abort" action="#{rentalHandler.abortRental}" />
+				<h:messages styleClass="warning" layout="table"/>
+			
+				<h:panelGrid columns="2">
+					<h:outputText value="Car" />
+					<h:outputText value="#{rentalHandler.rental.car.name}" />
+					
+					<h:outputText value="Fee" />
+					<h:outputText value="#{rentalHandler.rental.amount}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+					
+					<h:outputText value="Payment" />
+					<h:outputText value="#{rentalHandler.rental.payment.toString()}" />
+					
+					<h:outputText value="Rental until" />
+					<h:outputText value="#{rentalHandler.rental.rentedUntil}">
+						<f:convertDateTime dateStyle="medium" />
+					</h:outputText>
+				</h:panelGrid>
 			</fieldset>
-		
+			<fieldset>
+				<h:commandButton value="Confirm" action="#{rentalHandler.confirmRental}" />
+				<h:commandButton value="Cancel" action="#{rentalHandler.cancelRental}" />
+			</fieldset>
 		</h:form>
+		
+		<h:form id="form-logout">
+			<h:commandButton value="Logout" action="#{userHandler.logout}" />
+		</h:form>
+		
 	</h:body>
 </html>

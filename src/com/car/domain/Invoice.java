@@ -27,4 +27,9 @@ public class Invoice extends Payment implements Serializable {
 	public void setInvoiceNumber(Long invoiceNumber) {
 		this.invoiceNumber = invoiceNumber;
 	}
+
+	@Override
+	public String toString() {
+		return "Invoice";
+	}
 }

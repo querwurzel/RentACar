@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import javax.ejb.EJBException;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -24,7 +24,8 @@ import com.car.domain.Rental;
 /**
  * Session Bean implementation class SimpleOrderService
  */
-@Stateful
+
+@Stateless
 @RolesAllowed(CustomerRole.CONSUMER)
 public class SimpleRentalService implements RentalService {
 
@@ -36,57 +37,57 @@ public class SimpleRentalService implements RentalService {
 
 	@PersistenceContext
 	private EntityManager manager;
-	
-	private Rental rental;
-	
-	@PostConstruct
-	private void resetRental() {
-		this.rental = new Rental();
-		this.rental.setCustomer( this.customerService.getCurrentCustomer() );
-	}
-	
-	public void selectCar(Car car, Integer duration) {
+
+	public Rental commitCar(Rental rental, Car car, Integer duration) {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, duration);
 		
-		this.rental.setCar(car);
-		this.rental.setAmount( car.getDailyFee() * duration );
-		this.rental.setCurrency( car.getCurrency() );
-		this.rental.setRentedUntil( cal.getTime() );
+		rental.setCar(car);
+		rental.setAmount( car.getDailyFee() * duration );
+		rental.setCurrency( car.getCurrency() );
+		rental.setRentedUntil( cal.getTime() );
+		
+		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, String.format("SimpleRentalService: Assigned car to rental: '%s'", car.getName()));
+		
+		return rental;
 	}
 
-	public void selectPayment(Payment payment) {
+	public Rental commitPayment(Rental rental, Payment payment) {
 		// default date of payment
 		payment.setDateOfPayment( new Date() );
-		
+
 		if (payment instanceof Invoice) {
 			// date of payment for invoice: 14 days
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DAY_OF_YEAR, 14);
+			
 			payment.setDateOfPayment( cal.getTime() );
 			
 			// use nanoTime() as unique invoice number
 			((Invoice) payment).setInvoiceNumber( System.nanoTime() );
 		}
 		
-		this.rental.setPayment(payment);
+		rental.setPayment(payment);
+		
+		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, String.format("SimpleRentalService: Assigned payment to rental: '%s'", payment.toString()));
+
+		return rental;
 	}
 
-	public void abortRental() {
-		this.resetRental();
-	}
-
-	public void confirmRental() throws RuntimeException {
+	public Rental commitRental(Rental rental) {
 		// check car availability again
-		if (this.carService.isRented( this.rental.getCar().getId() )) {
-			Logger.getLogger(SimpleRentalService.class.getName()).log(Level.WARNING, "SimpleRentalService: Tried to rent a car curently rented.");
-			throw new RuntimeException("Car currently rented.");
+		if (this.carService.isRented( rental.getCar().getId() )) {
+			Logger.getLogger(SimpleRentalService.class.getName()).log(Level.WARNING, "SimpleRentalService: Car currently rented, rental aborted!");
+			throw new EJBException();
 		}
 		
-		this.rental.setDateRented( new Date() );
+		rental.setCustomer( this.customerService.getCurrentCustomer() );
+		rental.setDateRented( new Date() );
 
-		this.manager.persist(this.rental);
+		this.manager.persist(rental);
 		
-		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, String.format("SimpleRentalService: Customer (email: %s) just rented Car (id: %s).", this.rental.getCustomer().getEmail(), this.rental.getCar().getId()));
+		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, String.format("SimpleRentalService: Committed rental for customer: '%s' -> '%s'", rental.getCustomer().getEmail(), rental.getCar().getName()));
+	
+		return rental;
 	}
 }

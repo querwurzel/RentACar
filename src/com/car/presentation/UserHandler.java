@@ -1,24 +1,19 @@
 package com.car.presentation;
 
-import javax.annotation.PostConstruct;
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
-@SessionScoped
-public class UserHandler {
+@RequestScoped
+public class UserHandler implements Serializable {
 
-	private FacesContext context;
-
-	@PostConstruct
-	@SuppressWarnings("unused")
-	private void init() {
-		this.context = FacesContext.getCurrentInstance();
-	}
+	private static final long serialVersionUID = 1L;
 
 	public String logout() {
-		this.context.getExternalContext().invalidateSession();
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 
 		return "login";
 	}

@@ -55,4 +55,7 @@ public abstract class Payment implements Serializable {
 	public void setRental(Rental rental) {
 		this.rental = rental;
 	}
+
+	@Override
+	public abstract String toString();
 }

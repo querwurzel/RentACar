@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import com.car.business.remote.CarService;
-import com.car.business.remote.RentalService;
 import com.car.domain.Car;
 import com.car.domain.query.CarBasics;
 import com.car.domain.query.CarTypeBasics;
@@ -20,9 +20,9 @@ public class CarHandler {
 
 	@EJB
 	private CarService carService;
-
-	@EJB
-	private RentalService rentalService;
+	
+	@ManagedProperty(value = "#{rentalHandler}")
+	private RentalHandler rentalHandler;
 
 	private Integer duration;
 	private Long carTypeId;
@@ -61,6 +61,10 @@ public class CarHandler {
 	
 	public Boolean getIsRented() {
 		return this.isRented;
+	}
+
+	public void setRentalHandler(RentalHandler rentalHandler) {
+		this.rentalHandler = rentalHandler;
 	}
 	
 	/**
@@ -102,12 +106,10 @@ public class CarHandler {
 	 * Proceeds to payment if a car was selected successfully.
 	 */
 	public String confirmCar() {
-		// no car selected or car already rented
-		if (this.car == null || this.isRented)
+		// check if car selected
+		if (this.car == null)
 			return "index";
 
-		rentalService.selectCar(this.car, this.duration);
-
-		return "payment";
+		return rentalHandler.setCar(this.car, this.duration);
 	}
 }

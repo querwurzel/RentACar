@@ -22,6 +22,12 @@ public class CreditCard extends Payment implements Serializable {
 	public CreditCard() {
 		super();
 	}
+	
+	public CreditCard(String owner, Long number) {
+		this();
+		this.setOwner(owner);
+		this.setNumber(number);
+	}
 
 	public Long getNumber() {
 		return this.number;
@@ -37,5 +43,10 @@ public class CreditCard extends Payment implements Serializable {
 
 	public void setOwner(String owner) {
 		this.owner = owner;
+	}
+
+	@Override
+	public String toString() {
+		return "Credit Card";
 	}
 }
