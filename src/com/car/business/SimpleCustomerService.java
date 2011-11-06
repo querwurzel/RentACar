@@ -13,7 +13,6 @@ import javax.persistence.Query;
 
 import com.car.business.remote.CustomerService;
 import com.car.domain.Customer;
-import com.car.domain.Customer.CustomerRole;
 
 /**
  * Session Bean implementation class CustomerService
@@ -28,7 +27,7 @@ public class SimpleCustomerService implements CustomerService {
 	private SessionContext context;
 
 	public void registerCustomer(Customer customer) {
-		customer.setRole(CustomerRole.CONSUMER);
+		customer.setRole("CUSTOMER");
 
 		this.manager.persist(customer);
 
@@ -42,7 +41,7 @@ public class SimpleCustomerService implements CustomerService {
 		return (Long)query.getSingleResult() > 0;
 	}
 
-	@RolesAllowed(CustomerRole.CONSUMER)
+	@RolesAllowed("CUSTOMER")
 	public Customer getCurrentCustomer() {
 		Query query = this.manager.createNamedQuery(Customer.QUERY_CUSTOMER_BY_EMAIL, Customer.class);
 		query.setParameter(1, context.getCallerPrincipal().getName());

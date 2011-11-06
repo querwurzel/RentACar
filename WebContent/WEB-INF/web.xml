@@ -14,7 +14,7 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <security-role>
-    <role-name>CONSUMER</role-name>
+    <role-name>CUSTOMER</role-name>
   </security-role>
   <security-constraint>
     <web-resource-collection>
@@ -22,7 +22,7 @@
       <url-pattern>/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>CONSUMER</role-name>
+      <role-name>CUSTOMER</role-name>
     </auth-constraint>
   </security-constraint>
   <security-constraint>
@@ -43,10 +43,10 @@
       <form-error-page>/login.failed.xhtml</form-error-page>
     </form-login-config>
   </login-config>
-<!--   <error-page> -->
-<!--     <error-code>500</error-code> -->
-<!--     <location>/http/500.xhtml</location> -->
-<!--   </error-page> -->
+  <error-page>
+    <error-code>500</error-code>
+    <location>/http/500.xhtml</location>
+  </error-page>
   <error-page>
     <error-code>404</error-code>
     <location>/http/404.xhtml</location>

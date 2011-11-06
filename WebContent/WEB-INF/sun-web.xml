@@ -4,8 +4,8 @@
 	<context-root>/RentACar</context-root>
 
 	<security-role-mapping>
-		<role-name>CONSUMER</role-name>
-		<group-name>CONSUMER</group-name>
+		<role-name>CUSTOMER</role-name>
+		<group-name>CUSTOMER</group-name>
 	</security-role-mapping>
 
 	<class-loader delegate="true" />

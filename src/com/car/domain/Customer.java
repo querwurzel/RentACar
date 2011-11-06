@@ -172,12 +172,4 @@ public class Customer implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	public final class CustomerRole {
-
-		public static final String CONSUMER = "CONSUMER";
-
-		// to be continued
-
-	}
 }

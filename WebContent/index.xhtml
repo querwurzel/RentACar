@@ -17,7 +17,7 @@
 		<h3><h:message for="rental" id="rental" styleClass="notification" /></h3>
 		
 		<h:form>
-			<fieldset id="form-car-input">
+			<fieldset>
 				<h:panelGrid columns="5">
 					<h:selectOneListbox id="carTypeId" size="5" value="#{carHandler.carTypeId}" required="true">
 						<f:selectItems value="#{carHandler.carTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
@@ -47,7 +47,6 @@
 				<legend>Car Details</legend>
 
 				<h:panelGrid columns="2">	
-					
 					<h:outputText value="Name" />
 					<h:outputText value="#{carHandler.car.name}" />
 				
@@ -64,7 +63,6 @@
 					
 					<h:outputText value="Image" />
 					<h:graphicImage title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
-					
 				</h:panelGrid>
 			</fieldset>
 			

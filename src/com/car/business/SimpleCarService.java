@@ -12,7 +12,6 @@ import javax.persistence.Query;
 import com.car.business.remote.CarService;
 import com.car.domain.Car;
 import com.car.domain.CarType;
-import com.car.domain.Customer.CustomerRole;
 import com.car.domain.Rental;
 import com.car.domain.query.CarBasics;
 import com.car.domain.query.CarTypeBasics;
@@ -21,7 +20,7 @@ import com.car.domain.query.CarTypeBasics;
  * Session Bean implementation class CarService.
  */
 @Stateless
-@RolesAllowed(CustomerRole.CONSUMER)
+@RolesAllowed("CUSTOMER")
 public class SimpleCarService implements CarService {
 
 	@PersistenceContext

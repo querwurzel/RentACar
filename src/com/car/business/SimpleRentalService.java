@@ -16,7 +16,6 @@ import com.car.business.remote.CarService;
 import com.car.business.remote.CustomerService;
 import com.car.business.remote.RentalService;
 import com.car.domain.Car;
-import com.car.domain.Customer.CustomerRole;
 import com.car.domain.Invoice;
 import com.car.domain.Payment;
 import com.car.domain.Rental;
@@ -24,9 +23,8 @@ import com.car.domain.Rental;
 /**
  * Session Bean implementation class SimpleOrderService
  */
-
 @Stateless
-@RolesAllowed(CustomerRole.CONSUMER)
+@RolesAllowed("CUSTOMER")
 public class SimpleRentalService implements RentalService {
 
 	@EJB

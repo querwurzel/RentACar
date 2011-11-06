@@ -16,7 +16,6 @@ import com.car.domain.Car;
 import com.car.domain.CarType;
 import com.car.domain.CreditCard;
 import com.car.domain.Customer;
-import com.car.domain.Customer.CustomerRole;
 import com.car.domain.Customer.Gender;
 import com.car.domain.Invoice;
 import com.car.domain.Rental;
@@ -46,7 +45,7 @@ public class Bootstrap {
 		cust.setPassword("admin");
 		cust.setLocality("Locality");
 		cust.setPostalCode("D-12345");
-		cust.setRole(CustomerRole.CONSUMER);
+		cust.setRole("CUSTOMER");
 		
 		manager.persist(cust);
     	
