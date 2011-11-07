@@ -18,5 +18,7 @@ public interface CarService {
 	public Car getCar(Long carId);
 
 	public Boolean isRented(Long carId);
+	
+	public Boolean isRented(Car car);
 
 }

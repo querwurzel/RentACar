@@ -74,7 +74,7 @@ public class SimpleRentalService implements RentalService {
 
 	public Rental commitRental(Rental rental) {
 		// check car availability again
-		if (this.carService.isRented( rental.getCar().getId() )) {
+		if (this.carService.isRented( rental.getCar() )) {
 			Logger.getLogger(SimpleRentalService.class.getName()).log(Level.WARNING, "SimpleRentalService: Car currently rented, rental aborted!");
 			throw new EJBException();
 		}

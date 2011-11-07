@@ -50,4 +50,8 @@ public class SimpleCarService implements CarService {
 		
 		return (rentedUntil == null) ? false : (rentedUntil.getTime() > System.currentTimeMillis());
 	}
+
+	public Boolean isRented(Car car) {
+		return this.isRented( car.getId() );
+	}
 }
