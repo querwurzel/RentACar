@@ -31,18 +31,35 @@ public class RentalHandler {
 		return rental;
 	}
 
+	/**
+	 * First step in the rental workflow: Fills in car and duration into current rental.
+	 * Redirects to the next part.
+	 * 
+	 * @param car
+	 * @param duration
+	 */
 	public String setCar(Car car, Integer duration) {
 		this.rental = this.rentalService.commitCar(this.rental, car, duration);
 
 		return "payment";
 	}
 
+	/**
+	 * Second step in the rental workflow. Fills in payment type into current rental.
+	 * Redirects to the next part.
+	 * 
+	 * @param payment
+	 */
 	public String setPayment(Payment payment) {
 		this.rental = this.rentalService.commitPayment(this.rental, payment);
 
 		return "checkout";
 	}
 
+	/**
+	 * Last step in the the rental workflow. Persists current rental.
+	 * Redirects to index page if rental successful.
+	 */
 	public String confirmRental() {
 		try {
 			this.rentalService.commitRental(this.rental);
@@ -59,6 +76,9 @@ public class RentalHandler {
 		}
 	}
 
+	/**
+	 * Aborts current rental and redirects to index page.
+	 */
 	public String cancelRental() {
 		this.reset();
 

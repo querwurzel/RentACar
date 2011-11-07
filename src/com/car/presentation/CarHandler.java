@@ -68,19 +68,23 @@ public class CarHandler {
 	}
 	
 	/**
-	 * Returns all carTypes available.
+	 * Returns all carTypes available from CarService.
 	 */
 	public List<CarTypeBasics> getCarTypes() {
 		return this.carService.getCarTypes();
 	}
 	
 	/**
-	 * Returns all cars available for the current carType.
+	 * Returns all cars available for the current carType from CarService.
 	 */
 	public List<CarBasics> getCars() {
 		return this.carService.getCars(this.carTypeId);
 	}
 
+	/**
+	 * ActionListener Event
+	 * Resets dependent attributes for prior car selection.
+	 */
 	public void selectCarType(ActionEvent event) {
 		// reset dependent attributes
 		this.carId = null;
@@ -88,22 +92,36 @@ public class CarHandler {
 		this.isRented = null;
 	}
 
+	/**
+	 * ActionListener Event for Ajax
+	 * Refer to selectCarType().
+	 */
 	public void selectCarTypeAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCarType(null);
 	}
-
+	
+	/**
+	 * ActionListener Event
+	 * Retrieves car information from CarService if a car has been selected.
+	 */
 	public void selectCar(ActionEvent event) {
 		// reset or retrieve car information
 		this.car = (this.carId == null) ? null : this.carService.getCar(this.carId);
 		this.isRented = (this.carId == null) ? null : this.carService.isRented(this.carId);
 	}
 	
+	/**
+	 * ActionListener Event for Ajax
+	 * Refer to selectCar().
+	 */
 	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCar(null);
 	}
 
 	/**
-	 * Proceeds to payment if a car was selected successfully.
+	 * Starts rental workflow.
+	 * Sets currently selected car for new rental.
+	 * Redirects to the next step.
 	 */
 	public String confirmCar() {
 		// check if car selected

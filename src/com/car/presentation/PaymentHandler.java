@@ -34,14 +34,25 @@ public class PaymentHandler {
 		this.number = number;
 	}
 
+	/**
+	 * Setter for RentalHandler, required for dependency injection.
+	 */
 	public void setRentalHandler(RentalHandler rentalHandler) {
 		this.rentalHandler = rentalHandler;
 	}
 
+	/**
+	 * Sets invoice as payment type for current rental.
+	 * Redirects to the next step.
+	 */
 	public String confirmInvoice() {
 		return this.rentalHandler.setPayment(new Invoice());
 	}
 
+	/**
+	 * Sets credit card as payment type for current rental.
+	 * Redirects to the next step. 
+	 */
 	public String confirmCreditCard() {
 		return this.rentalHandler.setPayment(new CreditCard(this.owner, this.number));
 	}

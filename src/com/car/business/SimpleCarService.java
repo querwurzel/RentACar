@@ -26,10 +26,16 @@ public class SimpleCarService implements CarService {
 	@PersistenceContext
 	private EntityManager manager;
 	
+	/**
+	 * Returns all available car types.
+	 */
 	public List<CarTypeBasics> getCarTypes() {
 		return this.manager.createNamedQuery(CarType.QUERY_CARTYPE_BASICS, CarTypeBasics.class).getResultList();
 	}
 
+	/**
+	 * Returns all available cars for desired car type.
+	 */
 	@SuppressWarnings("unchecked")
 	public List<CarBasics> getCars(Long carTypeId) {
 		Query query = this.manager.createNamedQuery(Car.QUERY_CAR_BASICS_BY_CARTYPE, CarBasics.class);
@@ -38,10 +44,16 @@ public class SimpleCarService implements CarService {
 		return query.getResultList();
 	}
 
+	/**
+	 * Returns specific car entity.
+	 */
 	public Car getCar(Long carId) {
 		return this.manager.find(Car.class, carId);
 	}
 
+	/**
+	 * Checks if a car is currently rented.
+	 */
 	public Boolean isRented(Long carId) {
 		Query query = this.manager.createNamedQuery(Rental.QUERY_RENTEDUNTIL_BY_CAR);
 		query.setParameter(1, carId);

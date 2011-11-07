@@ -26,6 +26,10 @@ public class SimpleCustomerService implements CustomerService {
 	@Resource
 	private SessionContext context;
 
+	/**
+	 * Registers new Customer entity.
+	 * Adds security role for general customers. 
+	 */
 	public void registerCustomer(Customer customer) {
 		customer.setRole("CUSTOMER");
 
@@ -34,6 +38,9 @@ public class SimpleCustomerService implements CustomerService {
 		Logger.getLogger(SimpleCustomerService.class.getName()).log(Level.INFO, String.format("SimpleCustomerService: New customer registrated (email: %s).", customer.getEmail()));
 	}
 
+	/**
+	 * Checks if an email address is already assigned to a customer.
+	 */
 	public Boolean emailExists(String email) {
 		Query query = this.manager.createNamedQuery(Customer.QUERY_EMAIL, Long.class);
 		query.setParameter(1, email);
@@ -41,6 +48,9 @@ public class SimpleCustomerService implements CustomerService {
 		return (Long)query.getSingleResult() > 0;
 	}
 
+	/**
+	 * Retrieves customer entity by using the current principals as email address of a customer.
+	 */
 	@RolesAllowed("CUSTOMER")
 	public Customer getCurrentCustomer() {
 		Query query = this.manager.createNamedQuery(Customer.QUERY_CUSTOMER_BY_EMAIL, Customer.class);

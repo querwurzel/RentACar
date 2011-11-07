@@ -8,6 +8,9 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class UserHandler {
 
+	/**
+	 * Invalidates current user session and redirects to the login page.
+	 */
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 

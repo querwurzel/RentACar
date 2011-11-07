@@ -31,6 +31,10 @@ public class Bootstrap {
 	@PersistenceContext
 	private EntityManager manager;
 
+	/**
+	 * Bootstrap!
+	 * Only used for development. Do not use on productive systems.
+	 */
 	@PostConstruct
 	@SuppressWarnings("unused")
     private void init() {

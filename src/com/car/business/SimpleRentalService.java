@@ -36,6 +36,10 @@ public class SimpleRentalService implements RentalService {
 	@PersistenceContext
 	private EntityManager manager;
 
+	/**
+	 * Adds a car for a specific duration to a rental entity.
+	 * Takes care of rental fee.
+	 */
 	public Rental commitCar(Rental rental, Car car, Integer duration) {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, duration);
@@ -50,6 +54,10 @@ public class SimpleRentalService implements RentalService {
 		return rental;
 	}
 
+	/**
+	 * Adds a payment type to a rental entity.
+	 * Takes care of payment related information. 
+	 */
 	public Rental commitPayment(Rental rental, Payment payment) {
 		// default date of payment
 		payment.setDateOfPayment( new Date() );
@@ -72,6 +80,12 @@ public class SimpleRentalService implements RentalService {
 		return rental;
 	}
 
+	/**
+	 * Finishes a rental by persisting the entity object.
+	 * Takes care of rental related information.
+	 * 
+	 * @throws EJBException if car is currently rented
+	 */
 	public Rental commitRental(Rental rental) {
 		// check car availability again
 		if (this.carService.isRented( rental.getCar() )) {
