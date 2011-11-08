@@ -10,9 +10,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import com.car.business.remote.CarService;
+import com.car.business.remote.RentalService;
 import com.car.domain.Car;
-import com.car.domain.query.CarBasics;
-import com.car.domain.query.CarTypeBasics;
+import com.car.domain.dto.CarBasics;
+import com.car.domain.dto.CarTypeBasics;
 
 @ManagedBean
 @ViewScoped
@@ -23,6 +24,9 @@ public class CarHandler {
 	
 	@ManagedProperty(value = "#{rentalHandler}")
 	private RentalHandler rentalHandler;
+	
+	@ManagedProperty(value = "#{userHandler.rentalService}")
+	private RentalService rentalService;
 
 	private Integer duration;
 	private Long carTypeId;
@@ -130,4 +134,9 @@ public class CarHandler {
 
 		return rentalHandler.setCar(this.car, this.duration);
 	}
+
+	public void setRentalService(RentalService rentalService) {
+		this.rentalService = rentalService;
+	}
+	
 }

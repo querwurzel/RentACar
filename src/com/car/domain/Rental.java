@@ -1,7 +1,6 @@
 package com.car.domain;
 
 import java.io.Serializable;
-import java.util.Currency;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -43,9 +42,6 @@ public class Rental implements Serializable {
 	@Column(nullable = false)
 	private Double amount;
 
-	@Column(nullable = false)
-	private String currency;
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Payment payment;
@@ -72,14 +68,6 @@ public class Rental implements Serializable {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}
-
-	public Currency getCurrency() {
-		return Currency.getInstance(this.currency);
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency.getCurrencyCode();
 	}
 	
 	public Date getDateRented() {

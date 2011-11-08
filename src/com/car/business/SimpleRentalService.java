@@ -38,7 +38,7 @@ public class SimpleRentalService implements RentalService {
 
 	/**
 	 * Adds a car for a specific duration to a rental entity.
-	 * Takes care of rental fee.
+	 * Takes care of car related information.
 	 */
 	public Rental commitCar(Rental rental, Car car, Integer duration) {
 		Calendar cal = Calendar.getInstance();
@@ -46,7 +46,6 @@ public class SimpleRentalService implements RentalService {
 		
 		rental.setCar(car);
 		rental.setAmount( car.getDailyFee() * duration );
-		rental.setCurrency( car.getCurrency() );
 		rental.setRentedUntil( cal.getTime() );
 		
 		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, String.format("SimpleRentalService: Assigned car to rental: '%s'", car.getName()));
@@ -82,7 +81,7 @@ public class SimpleRentalService implements RentalService {
 
 	/**
 	 * Finishes a rental by persisting the entity object.
-	 * Takes care of rental related information.
+	 * Takes care of customer and rental related information.
 	 * 
 	 * @throws EJBException if car is currently rented
 	 */

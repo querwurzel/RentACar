@@ -52,10 +52,11 @@
 				
 					<h:outputText value="Description" />
 					<h:outputText value="#{carHandler.car.description}" />
-				
+
 					<h:outputText value="Daily Fee" />
-					<h:outputText value="#{carHandler.car.dailyFee}">
-						<f:convertNumber type="currency" />
+					
+					<h:outputText id="foo" value="#{carHandler.car.dailyFee}"  >
+						<f:convertNumber currencySymbol="EUR" currencyCode="EUR" type="currency" />
 					</h:outputText>
 					
 					<h:outputText value="Status" styleClass="warning" rendered="#{carHandler.isRented}" />

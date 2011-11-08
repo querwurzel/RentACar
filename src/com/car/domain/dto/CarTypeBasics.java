@@ -1,4 +1,4 @@
-package com.car.domain.query;
+package com.car.domain.dto;
 
 import java.io.Serializable;
 

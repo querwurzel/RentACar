@@ -5,8 +5,8 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import com.car.domain.Car;
-import com.car.domain.query.CarBasics;
-import com.car.domain.query.CarTypeBasics;
+import com.car.domain.dto.CarBasics;
+import com.car.domain.dto.CarTypeBasics;
 
 @Remote
 public interface CarService {

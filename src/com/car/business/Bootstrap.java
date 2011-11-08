@@ -1,6 +1,5 @@
 package com.car.business;
 
-import java.util.Currency;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,7 +66,6 @@ public class Bootstrap {
 		c11.setDescription("Der BMW 730d, dessen V8-Diesel mit zwei Turboladern ein gewaltiges Drehmoment entwickelt, verspricht die Leistungscharakteristik einer Dampfmaschine.");
 		c11.setImage("69f4af110693fcf5bd5472f7d1b58f6e.jpg");
 		c11.setDailyFee(90.0);
-		c11.setCurrency( Currency.getInstance("EUR") );
 		
 		Car c12 = new Car();
 		c12.setCarType( ct1 );
@@ -75,7 +73,6 @@ public class Bootstrap {
 		c12.setDescription("Der 306 PS starke BMW 535i mit Twinturbo-Reihensechser markiert die obere Mitte des Motorenangebots für den optisch braven neuen Fünfer BMW.");
 		c12.setImage("612e6aa528346c820efbff5e7f9304ff.jpg");
 		c12.setDailyFee(49.9);
-		c12.setCurrency( Currency.getInstance("EUR") );
 		
 		Car c21 = new Car();
 		c21.setCarType( ct2 );
@@ -83,7 +80,6 @@ public class Bootstrap {
 		c21.setDescription("Im März 2000 löste die Modellreihe 203 bei Mercedes-Benz die Modellreihe 202 ab. Zunächst nur als Limousine, seit Januar 2001 auch als T-Modell.");
 		c21.setImage("a140ebb3ce43c32127e435bcc7e73d1f.jpg");
 		c21.setDailyFee(60.0);
-		c21.setCurrency( Currency.getInstance("EUR") );
 		
 		manager.persist( c11 );
 		manager.persist( c12 );
@@ -105,7 +101,6 @@ public class Bootstrap {
 		// past
 		Rental r1 = new Rental();
 		r1.setAmount(200.0);
-		r1.setCurrency( Currency.getInstance("EUR") );
 		r1.setPayment(card);
 		r1.setCar(c11);
 		r1.setCustomer(cust);
@@ -115,7 +110,6 @@ public class Bootstrap {
 		// present
 		Rental r2 = new Rental();
 		r2.setAmount(100.0);
-		r2.setCurrency( Currency.getInstance("EUR") );
 		r2.setPayment(invoice);
 		r2.setCar(c11);
 		r2.setCustomer(cust);

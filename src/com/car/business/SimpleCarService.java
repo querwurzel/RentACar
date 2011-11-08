@@ -13,8 +13,8 @@ import com.car.business.remote.CarService;
 import com.car.domain.Car;
 import com.car.domain.CarType;
 import com.car.domain.Rental;
-import com.car.domain.query.CarBasics;
-import com.car.domain.query.CarTypeBasics;
+import com.car.domain.dto.CarBasics;
+import com.car.domain.dto.CarTypeBasics;
 
 /**
  * Session Bean implementation class CarService.

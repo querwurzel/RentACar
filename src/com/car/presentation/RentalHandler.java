@@ -1,10 +1,10 @@
 package com.car.presentation;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -17,9 +17,9 @@ import com.car.domain.Rental;
 @SessionScoped
 public class RentalHandler {
 
-	@EJB
+	@ManagedProperty(value = "#{userHandler.rentalService}")
 	private RentalService rentalService;
-
+	
 	private Rental rental;
 
 	@PostConstruct
@@ -27,6 +27,10 @@ public class RentalHandler {
 		this.rental = new Rental();
 	}
 
+	public void setRentalService(RentalService rentalService) {
+		this.rentalService = rentalService;
+	}
+	
 	public Rental getRental() {
 		return rental;
 	}

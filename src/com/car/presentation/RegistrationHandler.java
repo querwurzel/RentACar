@@ -40,7 +40,7 @@ public class RegistrationHandler {
 	private void init() {
 		this.postalCode = "D-";
 	}
-
+	
 	public Gender getGender() {
 		return gender;
 	}
