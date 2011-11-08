@@ -11,9 +11,8 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 import com.car.business.remote.CarService;
 import com.car.business.remote.RentalService;
-import com.car.domain.Car;
-import com.car.domain.dto.CarBasics;
-import com.car.domain.dto.CarTypeBasics;
+import com.car.domain.dto.CarTO;
+import com.car.domain.dto.CarTypeTO;
 
 @ManagedBean
 @ViewScoped
@@ -21,10 +20,7 @@ public class CarHandler {
 
 	@EJB
 	private CarService carService;
-	
-	@ManagedProperty(value = "#{rentalHandler}")
-	private RentalHandler rentalHandler;
-	
+
 	@ManagedProperty(value = "#{userHandler.rentalService}")
 	private RentalService rentalService;
 
@@ -32,7 +28,7 @@ public class CarHandler {
 	private Long carTypeId;
 	private Long carId;
 
-	private Car car;
+	private CarTO car;
 	private Boolean isRented;
 
 	public Integer getDuration() {
@@ -59,29 +55,32 @@ public class CarHandler {
 		this.carId = carId;
 	}
 
-	public Car getCar() {
+	public CarTO getCar() {
 		return this.car;
 	}
 	
 	public Boolean getIsRented() {
 		return this.isRented;
 	}
-
-	public void setRentalHandler(RentalHandler rentalHandler) {
-		this.rentalHandler = rentalHandler;
+	
+	/**
+	 * Setter for RentalService, required for dependency injection.
+	 */
+	public void setRentalService(RentalService rentalService) {
+		this.rentalService = rentalService;
 	}
 	
 	/**
 	 * Returns all carTypes available from CarService.
 	 */
-	public List<CarTypeBasics> getCarTypes() {
+	public List<CarTypeTO> getCarTypes() {
 		return this.carService.getCarTypes();
 	}
 	
 	/**
 	 * Returns all cars available for the current carType from CarService.
 	 */
-	public List<CarBasics> getCars() {
+	public List<CarTO> getCars() {
 		return this.carService.getCars(this.carTypeId);
 	}
 
@@ -97,8 +96,8 @@ public class CarHandler {
 	}
 
 	/**
-	 * ActionListener Event for Ajax
-	 * Refer to selectCarType().
+	 * Asynchronous Event for AJAX.
+	 * @see CarHandler#selectCarType(ActionEvent)
 	 */
 	public void selectCarTypeAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCarType(null);
@@ -115,28 +114,24 @@ public class CarHandler {
 	}
 	
 	/**
-	 * ActionListener Event for Ajax
-	 * Refer to selectCar().
+	 * Asynchronous Event for AJAX.
+	 * @see CarHandler#selectCar(ActionEvent)
 	 */
 	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCar(null);
 	}
 
 	/**
-	 * Starts rental workflow.
-	 * Sets currently selected car for new rental.
+	 * Starts rental workflow. Assigns selected to new rental.
 	 * Redirects to the next step.
 	 */
 	public String confirmCar() {
 		// check if car selected
-		if (this.car == null)
+		if (this.carId == null)
 			return "index";
 
-		return rentalHandler.setCar(this.car, this.duration);
-	}
+		this.rentalService.commitCar(this.carId, this.duration);
 
-	public void setRentalService(RentalService rentalService) {
-		this.rentalService = rentalService;
+		return "payment";
 	}
-	
 }

@@ -27,9 +27,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 })
 public class Customer implements Serializable {
 
-	public static final String QUERY_EMAIL = "Customer.Email.CountByEmail";
-
+	public static final String QUERY_EMAIL = "Customer.CountByEmail";
 	public static final String QUERY_CUSTOMER_BY_EMAIL = "Customer.FindByEmail";
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,8 +70,6 @@ public class Customer implements Serializable {
 	
 	@Column(nullable = false)
 	private String role;
-	
-	private static final long serialVersionUID = 1L;
 
 	public enum Gender {
 		FEMALE,

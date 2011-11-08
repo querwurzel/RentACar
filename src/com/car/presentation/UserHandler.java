@@ -37,16 +37,16 @@ public class UserHandler implements HttpSessionListener {
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
     public void sessionDestroyed(HttpSessionEvent se) {
-    	Logger.getLogger(UserHandler.class.getName()).log(Level.INFO, "Customer left RentACar. Goodbye!");
-
     	this.exit();
+    	
+    	Logger.getLogger(UserHandler.class.getName()).log(Level.INFO, "Customer left RentACar. Goodbye!");
     }
     
 	/**
 	 * Ensures that an ejbRemove() call is made to the stateful session bean.
 	 */
     private void exit() {
-    	System.out.println("Session killed!"); // TODO: replace with ejbRemove() call
+    	this.rentalService.terminate();
     }
 
 	/**

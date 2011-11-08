@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * Entity implementation class for Entity: Rental
@@ -26,6 +27,8 @@ import javax.persistence.TemporalType;
 public class Rental implements Serializable {
 
 	public static final String QUERY_RENTEDUNTIL_BY_CAR = "Rental.RentedUntil.FindByCar";
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,8 +54,6 @@ public class Rental implements Serializable {
 
 	@JoinColumn(nullable = false)
 	private Car car;
-
-	private static final long serialVersionUID = 1L;
 
 	public Rental() {
 		super();

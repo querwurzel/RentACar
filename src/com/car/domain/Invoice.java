@@ -11,10 +11,10 @@ import javax.persistence.Entity;
 @Entity
 public class Invoice extends Payment implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Column(nullable = false, unique = true)
 	private Long invoiceNumber;
-
-	private static final long serialVersionUID = 1L;
 
 	public Invoice() {
 		super();

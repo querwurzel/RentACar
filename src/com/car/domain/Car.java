@@ -18,11 +18,19 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Car.QUERY_CAR_BASICS_BY_CARTYPE, query = "SELECT NEW com.car.domain.dto.CarBasics(c.id, c.name) FROM Car c WHERE c.carType.id = ?1 ORDER BY c.name"),
+	@NamedQuery(
+		name = Car.QUERY_CAR_DTO_BY_CARTYPE,
+		query = "SELECT NEW com.car.domain.dto.CarTO(c.id, c.name) FROM Car c WHERE c.carType.id = ?1 ORDER BY c.name"),
+	@NamedQuery(
+		name = Car.QUERY_CAR_DTO_BY_ID,
+		query = "SELECT NEW com.car.domain.dto.CarTO(c.id, c.name, c.description, c.image, c.dailyFee) FROM Car c WHERE c.id = ?1")
 })
 public class Car implements Serializable {
 	
-	public static final String QUERY_CAR_BASICS_BY_CARTYPE = "Car.Basics.FindAllByCarType";
+	public static final String QUERY_CAR_DTO_BY_CARTYPE = "Car.DTO.FindAllByCarType";
+	public static final String QUERY_CAR_DTO_BY_ID = "Car.DTO.FindById";
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,8 +49,6 @@ public class Car implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
 	private CarType carType;
-
-	private static final long serialVersionUID = 1L;
 
 	public Car() {
 		super();
