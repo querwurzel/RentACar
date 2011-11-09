@@ -1,5 +1,6 @@
 package com.car.presentation;
 
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -32,11 +33,17 @@ public class RentalHandler {
 	 * Redirects to index page.
 	 */
 	public String confirmRental() {
-		this.rentalService.commitRental();
+		try {
+			this.rentalService.commitRental();
 
-		FacesContext.getCurrentInstance().addMessage("rental", new FacesMessage("Car successfully rented. Thank you."));
+			FacesContext.getCurrentInstance().addMessage("rental", new FacesMessage("Car successfully rented. Thank you."));
 
-		return "index";
+			return "index";
+		} catch (EJBException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Car currently rented!"));
+
+			return "checkout";
+		}
 	}
 
 	/**

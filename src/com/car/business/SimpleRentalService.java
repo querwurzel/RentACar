@@ -110,9 +110,14 @@ public class SimpleRentalService implements RentalService {
 	public RentalTO getCurrentRental() {
 		RentalTO to = new RentalTO();
 		to.setAmount( this.rental.getAmount() );
-		to.setCar( this.rental.getCar().getName() );
-		to.setPayment( this.rental.getPayment().toString() );
 		to.setRentedUntil( this.rental.getRentedUntil() );
+
+		if (this.rental.getCar() != null)
+			to.setCar( this.rental.getCar().getName() );
+
+		if (this.rental.getPayment() != null)
+			to.setPayment( this.rental.getPayment().toString() );
+
 		return to;
 	}
 	
@@ -154,7 +159,7 @@ public class SimpleRentalService implements RentalService {
 	 * Retrieves customer entity by email.
 	 */
 	private Customer getCustomer(String email) {
-		Query query = this.manager.createNamedQuery(Customer.QUERY_CUSTOMER_BY_EMAIL, Customer.class);
+		Query query = this.manager.createNamedQuery(Customer.QUERY_CUSTOMER_BY_EMAIL);
 		query.setParameter(1, email);
 
 		return (Customer)query.getSingleResult();
