@@ -21,6 +21,4 @@ public interface RentalService {
 
 	public void cancelRental();
 
-	public void terminate();
-
 }

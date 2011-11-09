@@ -10,9 +10,9 @@ import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.ejb.Remove;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
+import javax.ejb.StatefulTimeout;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -32,6 +32,7 @@ import com.car.domain.dto.RentalTO;
  * Session Bean implementation class SimpleOrderService
  */
 @Stateful
+@StatefulTimeout(value = 30)
 @RolesAllowed("CUSTOMER")
 public class SimpleRentalService implements RentalService {
 
@@ -148,11 +149,6 @@ public class SimpleRentalService implements RentalService {
 		this.reset();
 
 		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, "SimpleRentalService: Cancelled upcoming rental.");
-	}
-	
-	@Remove
-	public void terminate() {
-		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, "SimpleRentalService: Shuting down ..");
 	}
 	
 	/**
