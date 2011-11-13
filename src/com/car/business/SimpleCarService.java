@@ -34,7 +34,7 @@ public class SimpleCarService implements CarService {
 	}
 
 	/**
-	 * Returns all available cars for desired car type.
+	 * Returns all available cars for the specific car type.
 	 */
 	@SuppressWarnings("unchecked")
 	public List<CarTO> getCars(Long carTypeId) {

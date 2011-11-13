@@ -17,7 +17,9 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = CarType.QUERY_CARTYPE_DTO, query = "SELECT NEW com.car.domain.dto.CarTypeTO(ct.id, ct.name) FROM CarType ct ORDER BY ct.name")
+	@NamedQuery(
+		name = CarType.QUERY_CARTYPE_DTO,
+		query = "SELECT NEW com.car.domain.dto.CarTypeTO(ct.id, ct.name) FROM CarType ct ORDER BY ct.name")
 })
 public class CarType implements Serializable {
 	

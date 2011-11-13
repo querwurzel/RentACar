@@ -22,8 +22,12 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT COUNT(c.email) FROM Customer c WHERE c.email = ?1"),
-	@NamedQuery(name = Customer.QUERY_CUSTOMER_BY_EMAIL, query = "SELECT c FROM Customer c WHERE c.email = ?1")
+	@NamedQuery(
+		name = Customer.QUERY_EMAIL,
+		query = "SELECT COUNT(c.email) FROM Customer c WHERE c.email = ?1"),
+	@NamedQuery(
+		name = Customer.QUERY_CUSTOMER_BY_EMAIL,
+		query = "SELECT c FROM Customer c WHERE c.email = ?1")
 })
 public class Customer implements Serializable {
 
