@@ -22,14 +22,19 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Customer.QUERY_EMAIL, query = "SELECT COUNT(c.email) FROM Customer c WHERE c.email = ?1"),
-	@NamedQuery(name = Customer.QUERY_CUSTOMER_BY_EMAIL, query = "SELECT c FROM Customer c WHERE c.email = ?1")
+	@NamedQuery(
+		name = Customer.QUERY_EMAIL,
+		query = "SELECT COUNT(c.email) FROM Customer c WHERE c.email = ?1"),
+	@NamedQuery(
+		name = Customer.QUERY_CUSTOMER_BY_EMAIL,
+		query = "SELECT c FROM Customer c WHERE c.email = ?1")
 })
 public class Customer implements Serializable {
 
-	public static final String QUERY_EMAIL = "Customer.Email.CountByEmail";
-
+	public static final String QUERY_EMAIL = "Customer.CountByEmail";
 	public static final String QUERY_CUSTOMER_BY_EMAIL = "Customer.FindByEmail";
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,8 +74,6 @@ public class Customer implements Serializable {
 	
 	@Column(nullable = false)
 	private String role;
-	
-	private static final long serialVersionUID = 1L;
 
 	public enum Gender {
 		FEMALE,
@@ -171,13 +174,5 @@ public class Customer implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-	
-	public final class CustomerRole {
-
-		public static final String CONSUMER = "CONSUMER";
-
-		// to be continued
-
 	}
 }

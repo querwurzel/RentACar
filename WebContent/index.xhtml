@@ -17,7 +17,7 @@
 		<h3><h:message for="rental" id="rental" styleClass="notification" /></h3>
 		
 		<h:form>
-			<fieldset id="form-car-input">
+			<fieldset>
 				<h:panelGrid columns="5">
 					<h:selectOneListbox id="carTypeId" size="5" value="#{carHandler.carTypeId}" required="true">
 						<f:selectItems value="#{carHandler.carTypes}" var="ct" itemLabel="#{ct.name}" itemValue="#{ct.id}" />
@@ -47,16 +47,16 @@
 				<legend>Car Details</legend>
 
 				<h:panelGrid columns="2">	
-					
 					<h:outputText value="Name" />
 					<h:outputText value="#{carHandler.car.name}" />
 				
 					<h:outputText value="Description" />
 					<h:outputText value="#{carHandler.car.description}" />
-				
+
 					<h:outputText value="Daily Fee" />
-					<h:outputText value="#{carHandler.car.dailyFee}">
-						<f:convertNumber type="currency" />
+					
+					<h:outputText id="foo" value="#{carHandler.car.dailyFee}"  >
+						<f:convertNumber currencySymbol="EUR" currencyCode="EUR" type="currency" />
 					</h:outputText>
 					
 					<h:outputText value="Status" styleClass="warning" rendered="#{carHandler.isRented}" />
@@ -64,7 +64,6 @@
 					
 					<h:outputText value="Image" />
 					<h:graphicImage title="#{carHandler.car.name}" value="/images/cars/#{carHandler.car.image}" rendered="#{carHandler.car.image != null}" />
-					
 				</h:panelGrid>
 			</fieldset>
 			

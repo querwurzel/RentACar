@@ -17,12 +17,16 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = CarType.QUERY_CARTYPE_BASICS, query = "SELECT NEW com.car.domain.query.CarTypeBasics(ct.id, ct.name) FROM CarType ct ORDER BY ct.name")
+	@NamedQuery(
+		name = CarType.QUERY_CARTYPE_DTO,
+		query = "SELECT NEW com.car.domain.dto.CarTypeTO(ct.id, ct.name) FROM CarType ct ORDER BY ct.name")
 })
 public class CarType implements Serializable {
 	
-	public static final String QUERY_CARTYPE_BASICS = "CarType.Basics.FindAll";
+	public static final String QUERY_CARTYPE_DTO = "CarType.DTO.FindAll";
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -32,8 +36,6 @@ public class CarType implements Serializable {
 	
 	@OneToMany(mappedBy = "carType")
 	private List<Car> cars;
-	
-	private static final long serialVersionUID = 1L;
 
 	public CarType() {
 		super();

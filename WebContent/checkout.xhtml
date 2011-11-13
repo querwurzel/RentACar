@@ -16,23 +16,23 @@
 
 		<h:form>
 			<fieldset>
-				<h:messages styleClass="warning" layout="table"/>
-			
+				<h:messages styleClass="warning" layout="table" />
+
 				<h:panelGrid columns="2">
 					<h:outputText value="Car" />
-					<h:outputText value="#{rentalHandler.rental.car.name}" />
+					<h:outputText value="#{rentalHandler.rental.car}" />
 					
 					<h:outputText value="Fee" />
 					<h:outputText value="#{rentalHandler.rental.amount}">
-						<f:convertNumber type="currency" />
+						<f:convertNumber currencySymbol="EUR" currencyCode="EUR" type="currency" />
 					</h:outputText>
 					
 					<h:outputText value="Payment" />
-					<h:outputText value="#{rentalHandler.rental.payment.toString()}" />
+					<h:outputText value="#{rentalHandler.rental.payment}" />
 					
 					<h:outputText value="Rental until" />
 					<h:outputText value="#{rentalHandler.rental.rentedUntil}">
-						<f:convertDateTime dateStyle="medium" />
+						<f:convertDateTime dateStyle="long" />
 					</h:outputText>
 				</h:panelGrid>
 			</fieldset>

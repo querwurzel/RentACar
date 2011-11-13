@@ -22,6 +22,8 @@ import javax.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Payment implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -33,8 +35,6 @@ public abstract class Payment implements Serializable {
 	@OneToOne(mappedBy = "payment")
 	@JoinColumn(nullable = false)
 	private Rental rental;
-
-	private static final long serialVersionUID = 1L;
 
 	public Long getId() {
 		return this.id;

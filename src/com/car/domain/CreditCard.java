@@ -10,14 +10,14 @@ import javax.persistence.Entity;
  */
 @Entity
 public class CreditCard extends Payment implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Column(nullable = false)
 	private Long number;
 
 	@Column(nullable = false)
 	private String owner;
-
-	private static final long serialVersionUID = 1L;
 
 	public CreditCard() {
 		super();

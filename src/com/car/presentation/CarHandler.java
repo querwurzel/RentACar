@@ -10,9 +10,9 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import com.car.business.remote.CarService;
-import com.car.domain.Car;
-import com.car.domain.query.CarBasics;
-import com.car.domain.query.CarTypeBasics;
+import com.car.business.remote.RentalService;
+import com.car.domain.dto.CarTO;
+import com.car.domain.dto.CarTypeTO;
 
 @ManagedBean
 @ViewScoped
@@ -20,15 +20,15 @@ public class CarHandler {
 
 	@EJB
 	private CarService carService;
-	
-	@ManagedProperty(value = "#{rentalHandler}")
-	private RentalHandler rentalHandler;
+
+	@ManagedProperty(value = "#{userHandler.rentalService}")
+	private RentalService rentalService;
 
 	private Integer duration;
 	private Long carTypeId;
 	private Long carId;
 
-	private Car car;
+	private CarTO car;
 	private Boolean isRented;
 
 	public Integer getDuration() {
@@ -55,32 +55,39 @@ public class CarHandler {
 		this.carId = carId;
 	}
 
-	public Car getCar() {
+	public CarTO getCar() {
 		return this.car;
 	}
 	
 	public Boolean getIsRented() {
 		return this.isRented;
 	}
-
-	public void setRentalHandler(RentalHandler rentalHandler) {
-		this.rentalHandler = rentalHandler;
+	
+	/**
+	 * Setter for RentalService, required for dependency injection.
+	 */
+	public void setRentalService(RentalService rentalService) {
+		this.rentalService = rentalService;
 	}
 	
 	/**
-	 * Returns all carTypes available.
+	 * Returns all carTypes available from CarService.
 	 */
-	public List<CarTypeBasics> getCarTypes() {
+	public List<CarTypeTO> getCarTypes() {
 		return this.carService.getCarTypes();
 	}
 	
 	/**
-	 * Returns all cars available for the current carType.
+	 * Returns all cars available for the current carType from CarService.
 	 */
-	public List<CarBasics> getCars() {
+	public List<CarTO> getCars() {
 		return this.carService.getCars(this.carTypeId);
 	}
 
+	/**
+	 * ActionListener Event
+	 * Resets dependent attributes for prior car selection.
+	 */
 	public void selectCarType(ActionEvent event) {
 		// reset dependent attributes
 		this.carId = null;
@@ -88,28 +95,43 @@ public class CarHandler {
 		this.isRented = null;
 	}
 
+	/**
+	 * Asynchronous Event for AJAX.
+	 * @see CarHandler#selectCarType(ActionEvent)
+	 */
 	public void selectCarTypeAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCarType(null);
 	}
-
+	
+	/**
+	 * ActionListener Event
+	 * Retrieves car information from CarService if a car has been selected.
+	 */
 	public void selectCar(ActionEvent event) {
 		// reset or retrieve car information
 		this.car = (this.carId == null) ? null : this.carService.getCar(this.carId);
 		this.isRented = (this.carId == null) ? null : this.carService.isRented(this.carId);
 	}
 	
+	/**
+	 * Asynchronous Event for AJAX.
+	 * @see CarHandler#selectCar(ActionEvent)
+	 */
 	public void selectCarAsynchronous(AjaxBehaviorEvent event) {
 		this.selectCar(null);
 	}
 
 	/**
-	 * Proceeds to payment if a car was selected successfully.
+	 * Starts rental workflow. Assigns selected to new rental.
+	 * Redirects to the next step.
 	 */
 	public String confirmCar() {
 		// check if car selected
-		if (this.car == null)
+		if (this.carId == null)
 			return "index";
 
-		return rentalHandler.setCar(this.car, this.duration);
+		this.rentalService.commitCar(this.carId, this.duration);
+
+		return "payment";
 	}
 }

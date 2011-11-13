@@ -14,8 +14,8 @@ import javax.faces.validator.ValidatorException;
 import org.apache.commons.validator.EmailValidator;
 
 import com.car.business.remote.CustomerService;
-import com.car.domain.Customer;
 import com.car.domain.Customer.Gender;
+import com.car.domain.dto.CustomerTO;
 
 @ManagedBean
 @ViewScoped
@@ -40,7 +40,7 @@ public class RegistrationHandler {
 	private void init() {
 		this.postalCode = "D-";
 	}
-
+	
 	public Gender getGender() {
 		return gender;
 	}
@@ -142,7 +142,7 @@ public class RegistrationHandler {
 	 * Returns to login page afterwards.
 	 */
 	public String registerCustomer() {
-		Customer customer = new Customer();
+		CustomerTO customer = new CustomerTO();
 		customer.setGender( this.getGender() );
 		customer.setSurname( this.getSurname() );
 		customer.setName( this.getName() );
