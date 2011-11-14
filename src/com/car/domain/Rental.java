@@ -21,7 +21,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name = Rental.QUERY_RENTEDUNTIL_BY_CAR, query = "SELECT MAX(r.rentedUntil) FROM Rental r WHERE r.car.id = ?1")
+	@NamedQuery(
+		name = Rental.QUERY_RENTEDUNTIL_BY_CAR,
+		query = "SELECT MAX(r.rentedUntil) FROM Rental r WHERE r.car.id = ?1")
 })
 public class Rental implements Serializable {
 
