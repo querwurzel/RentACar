@@ -140,9 +140,9 @@ public class SimpleRentalService implements RentalService {
 
 		this.manager.persist(rental);
 		
-		this.reset();
-		
 		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, String.format("SimpleRentalService: Committed rental for customer: '%s' -> '%s'", rental.getCustomer().getEmail(), rental.getCar().getName()));
+		
+		this.reset();
 	}
 
 	public void cancelRental() {
