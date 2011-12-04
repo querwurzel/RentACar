@@ -64,7 +64,7 @@ public class SimpleRentalService implements RentalService {
 
 		// set car relatives
 		Car car = this.getCar(carId);
-		this.rental.setCar( car );
+		this.rental.setCar(car);
 		this.rental.setAmount( car.getDailyFee() * duration );
 		
 		Logger.getLogger(SimpleRentalService.class.getName()).log(Level.INFO, String.format("SimpleRentalService: Assigned car to rental: '%s'", car.getName()));
@@ -97,7 +97,7 @@ public class SimpleRentalService implements RentalService {
 	public void commitCreditCard(CreditCardTO to) {
 		CreditCard card = new CreditCard(to.getOwner(), to.getNumber());
 		
-		// default date of payment
+		// date of payment for credit cards: now
 		card.setDateOfPayment( new Date() );
 
 		this.rental.setPayment(card);

@@ -24,6 +24,9 @@
     <auth-constraint>
       <role-name>CUSTOMER</role-name>
     </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>INTEGRAL</transport-guarantee>
+    </user-data-constraint>
   </security-constraint>
   <security-constraint>
     <web-resource-collection>
@@ -34,6 +37,9 @@
       <url-pattern>/javax.faces.resource/*</url-pattern>
       <url-pattern>/register.xhtml</url-pattern>
     </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>INTEGRAL</transport-guarantee>
+    </user-data-constraint>
   </security-constraint>
   <login-config>
     <auth-method>FORM</auth-method>

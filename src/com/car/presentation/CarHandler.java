@@ -85,7 +85,6 @@ public class CarHandler {
 	}
 
 	/**
-	 * ActionListener Event
 	 * Resets dependent attributes for prior car selection.
 	 */
 	public void selectCarType(ActionEvent event) {
@@ -104,7 +103,6 @@ public class CarHandler {
 	}
 	
 	/**
-	 * ActionListener Event
 	 * Retrieves car information from CarService if a car has been selected.
 	 */
 	public void selectCar(ActionEvent event) {
@@ -122,7 +120,7 @@ public class CarHandler {
 	}
 
 	/**
-	 * Starts rental workflow. Assigns selected to new rental.
+	 * Starts rental workflow. Assigns selected car to new rental.
 	 * Redirects to the next step.
 	 */
 	public String confirmCar() {
