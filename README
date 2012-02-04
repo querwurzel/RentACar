@@ -1,0 +1,15 @@
+# RentACar
+
+RentACar is a simple Java enterprise web application built on Java server faces 2.0.
+
+It is designated to be deployed on the Glassfish application server.
+
+
+# License
+
+RentACar is intented for educational purposes only and therefore licensed under the Creative Commons License BY-NC.
+
+The car images are public domain (http://commons.wikimedia.org/).
+
+The Apache Commons libraries are licensed under the Apache Software Licence 2.0.
+
